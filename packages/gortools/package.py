@@ -23,7 +23,7 @@
 from spack import *
 
 
-class Gortools(Package):
+class Gortools(CMakePackage):
     homepage = "https://developers.google.com/optimization/install/cpp"
     version('8.0', sha256='ac01d7ebde157daaeb0e21ce54923a48e4f1d21faebd0b08a54979f150f909ee')
     version('7.1', sha256='c4c65cb3351554d207d5bb212601ca4e9d352563cda35a283d75963739d16bbd')
@@ -36,19 +36,32 @@ class Gortools(Package):
     version('7.8', sha256='d93a9502b18af51902abd130ff5f23768fcf47e266e6d1f34b3586387aa2de68')
     version('7.0', sha256='379c13c9a5ae70bf0e876763005b2d2d51fcf966882b28b1a65344f2d3d2c589')
     depends_on('gflags')
+    depends_on('glog')
+    depends_on('abseil-cpp')
+    depends_on('protobuf')
+    depends_on('coinutils')
+    depends_on('osi')
+    depends_on('clp')
+    depends_on('cgl')
+    depends_on('cbc')
     depends_on('cmake@3.0.2:', '@7.7:')
-
     def url_for_version(self, version):
         url = "https://github.com/google/or-tools/archive/v{}.tar.gz"
         return url.format(version)
 
-    def install(self, spec, prefix):
-        options = ['prefix=%s' % prefix]
-        # with working_dir('spack-build', create=True):
-        make('third_party')
-        make('cc')
-        make('install_cc', *options)
-
+    #def install(self, spec, prefix):
+    #    options = ['prefix=%s' % prefix]
+    #    # with working_dir('spack-build', create=True):
+    #    #cp = Executable("cp")
+    #    #path = join_path(self.stage.source_path)
+    #    #options = ["-LRnv", "%s" % path, "%s" % prefix]
+    #    #cp(*options)
+    #    make('third_party','F77=gfortran')
+    #    make('cc')
+    #    make('install_cc', *options)
+    def cmake_args(self):
+        args = ['-DCMAKE_INSTALL_PREFIX={}'.format(self.prefix)]
+        return args
     def set_include(self, env, path):
         env.append_flags('CFLAGS', '-I{}'.format(path))
         env.append_flags('CXXFLAGS', '-I{}'.format(path))
