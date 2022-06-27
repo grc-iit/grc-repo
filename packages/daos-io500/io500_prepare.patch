@@ -1,17 +1,19 @@
 diff --git a/prepare.sh b/prepare.sh
-index f8908d7..19d4aa6 100755
+index f8908d7..39fedb3 100755
 --- a/prepare.sh
 +++ b/prepare.sh
-@@ -8,7 +8,7 @@ echo It will output OK at the end if builds succeed
+@@ -8,7 +8,9 @@ echo It will output OK at the end if builds succeed
  echo
  
  IOR_HASH=0410a38e985e0862a9fd9abec017abffc4c5fc43
 -PFIND_HASH=62c3a7e31
 +PFIND_HASH=mfu_integration
++
++SPACK_DAOS_PREFIX=$1
  
  INSTALL_DIR=$PWD
  BIN=$INSTALL_DIR/bin
-@@ -59,7 +59,7 @@ function get_ior {
+@@ -59,7 +61,7 @@ function get_ior {
  
  function get_pfind {
    echo "Preparing parallel find"
@@ -20,12 +22,12 @@ index f8908d7..19d4aa6 100755
  }
  
  function get_schema_tools {
-@@ -73,7 +73,7 @@ function build_ior {
+@@ -73,7 +75,7 @@ function build_ior {
    pushd $BUILD/ior
    ./bootstrap
    # Add here extra flags
 -  ./configure --prefix=$INSTALL_DIR
-+  ./configure --prefix=$INSTALL_DIR --with-daos=
++  ./configure --prefix=$INSTALL_DIR --with-daos=${SPACK_DAOS_PREFIX}
    cd src
    $MAKE clean
    $MAKE install

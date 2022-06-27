@@ -11,18 +11,19 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install mpifileutils-daos
+#     spack install daos-mpifileutils
 #
 # You can edit this file again by typing:
 #
-#     spack edit mpifileutils-daos
+#     spack edit daos-mpifileutils
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
 from spack import *
+import os
 
-class MpifileutilsDaos(CMakePackage):
+class DaosMpifileutils(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -35,7 +36,7 @@ class MpifileutilsDaos(CMakePackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('1.0.0', git="https://github.com/mchaarawi/mpifileutils", branch="pfind_integration")
+    version('2.0', git="https://github.com/mchaarawi/mpifileutils", branch="pfind_integration")
 
     patch('cmakelists.patch')
 
@@ -47,14 +48,21 @@ class MpifileutilsDaos(CMakePackage):
     depends_on('daos')
     depends_on('mpi')
 
+    def setup_run_environment(self, env):
+        env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
+        env.prepend_path('INCLUDE', os.path.join(self.prefix, 'include'))
+        env.prepend_path('LIBRARY_PATH', os.path.join(self.prefix, 'lib'))
+        env.prepend_path('LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('PATH', os.path.join(self.prefix, 'bin'))
+
     def cmake_args(self, spec, prefix):
-        dtcmp = spack.spec.Spec(spec['dtcmp']).concretized().format('{prefix}')
-        libcircle = spack.spec.Spec(spec['dtcmp']).concretized().format('{prefix}')
         args = [
             '-DCMAKE_INSTALL_PREFIX={}'.format(prefix),
             '-DENABLE_XATTRS=OFF',
-            '-DWITH_DTCMP_PREFIX={}'.format(dtcmp),
-            '-DWITH_LibCircle_PREFIX={}'.format(libcircle)
+            '-DWITH_DTCMP_PREFIX={}'.format(spec['dtcmp'].prefix),
+            '-DWITH_LibCircle_PREFIX={}'.format(spec['libcircle'].prefix)
         ]
         return args
 
