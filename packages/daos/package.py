@@ -43,6 +43,9 @@ class Daos(Package):
 
     depends_on('scons')
     depends_on('ncurses')
+    depends_on('dpdk')
+    depends_on('spdk')
+    depends_on('argobots')
     variant('sys',
             default='centos8',
             values=('centos8', 'centos7', 'ubuntu20', 'leap15'),
