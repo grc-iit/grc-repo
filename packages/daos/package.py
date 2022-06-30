@@ -24,6 +24,8 @@ from spack import *
 import shutil
 import os
 
+#pip3 install defusedxml distro junit_xml pyxattr tabulate scons pyyaml pyelftools
+
 class Daos(Package):
     """FIXME: Put a proper description of your package here."""
 
