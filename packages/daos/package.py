@@ -39,6 +39,12 @@ class Daos(Package):
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["prepare", "build", "install"]
 
+    variant('sys',
+            default='centos8',
+            values=('centos8', 'centos7', 'ubuntu20', 'leap15'),
+            multi=False,
+            description='OS Version')
+
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
         env.prepend_path('INCLUDE', os.path.join(self.prefix, 'include'))
@@ -50,12 +56,18 @@ class Daos(Package):
 
     def prepare(self, spec, prefix):
         deps = Executable('sudo')
-        if shutil.which('apt') is not None:
+        os = str(self.spec.variants['sys'])
+        if os == 'sys=ubuntu20':
             deps('bash', './utils/scripts/install-ubuntu20.sh')
-        else:
+        elif os == 'sys=centos8':
             deps('bash', './utils/scripts/install-el8.sh')
+        elif os == 'os=centos7':
             deps('bash', './utils/scripts/install-centos7.sh')
+        elif os == 'sys=leap15':
             deps('bash', './utils/scripts/install-leap15.sh')
+        else:
+            print("Requires variant OS")
+            exit()
 
     def build_args(self, spec, prefix):
         args = [
