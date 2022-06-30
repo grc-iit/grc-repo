@@ -51,11 +51,11 @@ class Daos(Package):
     def prepare(self, spec, prefix):
         deps = Executable('sudo')
         if shutil.which('apt') is not None:
-            deps('./utils/scripts/install-ubuntu20.sh')
+            deps('bash', './utils/scripts/install-ubuntu20.sh')
         else:
-            deps('./utils/scripts/install-el8.sh')
-            deps('./utils/scripts/install-centos7.sh')
-            deps('./utils/scripts/install-leap15.sh')
+            deps('bash', './utils/scripts/install-el8.sh')
+            deps('bash', './utils/scripts/install-centos7.sh')
+            deps('bash', './utils/scripts/install-leap15.sh')
 
     def build_args(self, spec, prefix):
         args = [
