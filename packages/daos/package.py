@@ -39,6 +39,7 @@ class Daos(Package):
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["prepare", "build", "install"]
 
+    depends_on('scons')
     variant('sys',
             default='centos8',
             values=('centos8', 'centos7', 'ubuntu20', 'leap15'),
