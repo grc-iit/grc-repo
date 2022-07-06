@@ -41,6 +41,7 @@ class Daos(Package):
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["prepare", "build", "install"]
 
+    """
     depends_on('python')
     depends_on('py-defusedxml')
     depends_on('py-distro')
@@ -49,8 +50,7 @@ class Daos(Package):
     depends_on('py-xattr')
     depends_on('py-tabulate')
     depends_on('scons')
-
-    """
+    
     depends_on('ncurses')
     #depends_on('dpdk')
     #depends_on('spdk')
