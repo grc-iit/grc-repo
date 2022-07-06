@@ -41,12 +41,21 @@ class Daos(Package):
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["prepare", "build", "install"]
 
+    depends_on('python')
+    depends_on('py-defusedxml')
+    depends_on('py-distro')
+    depends_on('py-junit-xml')
+    depends_on('py-pyelftools')
+    depends_on('py-xattr')
+    depends_on('py-tabulate')
     depends_on('scons')
+
+    """
     depends_on('ncurses')
-    depends_on('dpdk')
-    depends_on('spdk')
-    depends_on('argobots')
-    depends_on('gcc')
+    #depends_on('dpdk')
+    #depends_on('spdk')
+    #depends_on('argobots')
+    #depends_on('gcc')
     depends_on('go')
     depends_on('git')
     depends_on('boost')
@@ -76,17 +85,10 @@ class Daos(Package):
     depends_on('patchelf')
     depends_on('pciutils')
     depends_on('pkg-config')
-    depends_on('python')
-    depends_on('py-defusedxml')
-    depends_on('py-distro')
-    depends_on('py-junit-xml')
-    depends_on('py-pyelftools')
-    depends_on('py-xattr')
-    depends_on('py-tabulate')
-    depends_on('scons')
     depends_on('libuuid')
     depends_on('valgrind')
     depends_on('yasm')
+    """
 
     variant('sys',
             default='centos8',
