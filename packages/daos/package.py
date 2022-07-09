@@ -40,56 +40,6 @@ class Daos(Package):
     # FIXME: Add proper versions and checksums here.
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["prepare", "build", "install"]
-
-    """
-    depends_on('python')
-    depends_on('py-defusedxml')
-    depends_on('py-distro')
-    depends_on('py-junit-xml')
-    depends_on('py-pyelftools')
-    depends_on('py-xattr')
-    depends_on('py-tabulate')
-    depends_on('scons')
-    
-    depends_on('ncurses')
-    #depends_on('dpdk')
-    #depends_on('spdk')
-    #depends_on('argobots')
-    #depends_on('gcc')
-    depends_on('go')
-    depends_on('git')
-    depends_on('boost')
-    depends_on('cmake')
-    depends_on('autoconf')
-    depends_on('file')
-    depends_on('libfuse')
-    depends_on('libaio')
-    depends_on('curl')
-    depends_on('kmod')
-    depends_on('cmocka')
-    depends_on('cunit')
-    depends_on('hwloc@1.9')
-    depends_on('json-c')
-    depends_on('lz4')
-    depends_on('mpi')
-    depends_on('rdma-core')
-    depends_on('openssl')
-    depends_on('libtool')
-    depends_on('libunwind')
-    depends_on('libyaml')
-    depends_on('maven')
-    depends_on('meson')
-    depends_on('numactl')
-    depends_on('meson')
-    depends_on('ninja')
-    depends_on('patchelf')
-    depends_on('pciutils')
-    depends_on('pkg-config')
-    depends_on('libuuid')
-    depends_on('valgrind')
-    depends_on('yasm')
-    """
-
     variant('sys',
             default='centos8',
             values=('centos8', 'centos7', 'ubuntu20', 'leap15'),
@@ -135,18 +85,3 @@ class Daos(Package):
     def install(self, spec, prefix):
         scons = Executable('scons')
         scons('install')
-
-"""
-clang \
-libibverbs-dev \
-libipmctl-dev \
-libnuma-dev \
-libopenmpi-dev \
-librdmacm-dev \
-locales \
-openjdk-8-jdk \
-"""
-
-"""
-#depends_on('e2fsprogs@1.46.5')
-"""
