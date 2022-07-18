@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 
 from spack import *
-
+import os
 
 class NatsC(CMakePackage):
     """FIXME: Put a proper description of your package here."""
@@ -39,9 +39,11 @@ class NatsC(CMakePackage):
     # FIXME: Add dependencies if required.
     depends_on('protobuf-c')
 
-    def cmake_args(self):
-        # FIXME: Add arguments other than
-        # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE
-        # FIXME: If not needed delete this function
-        args = []
-        return args
+    def setup_run_environment(self, env):
+        env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
+        env.prepend_path('INCLUDE', os.path.join(self.prefix, 'include'))
+        env.prepend_path('LIBRARY_PATH', os.path.join(self.prefix, 'lib'))
+        env.prepend_path('LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
+        env.prepend_path('PATH', os.path.join(self.prefix, 'bin'))

@@ -44,3 +44,4 @@ class Labios(CMakePackage):
     depends_on('mpi')
     depends_on('protobuf-c')
     depends_on('cereal')
+    depends_on('cityhash')
