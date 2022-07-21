@@ -46,3 +46,4 @@ class Labios(CMakePackage):
     depends_on('protobuf-c')
     depends_on('cereal')
     depends_on('cityhash')
+    depends_on('yaml-cpp')
