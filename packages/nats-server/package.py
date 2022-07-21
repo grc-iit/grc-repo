@@ -11,11 +11,11 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install labios
+#     spack install nats-server
 #
 # You can edit this file again by typing:
 #
-#     spack edit labios
+#     spack edit nats-server
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
@@ -23,26 +23,30 @@
 from spack import *
 
 
-class Labios(CMakePackage):
+class NatsServer(Package):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    url      = "labios"
+    url      = "https://github.com/nats-io/nats-server.git"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
 
-    # FIXME: Add proper versions here.
-    version('master', git="https://github.com/lukemartinlogan/labios.git", branch='master')
+    # FIXME: Add proper versions and checksums here.
+    version('2.8.4', git='https://github.com/nats-io/nats-server.git', branch='v2.8.4')
+    version('2.8.3', git='https://github.com/nats-io/nats-server.git', branch='v2.8.3')
+    version('2.8.2', git='https://github.com/nats-io/nats-server.git', branch='v2.8.2')
+    version('2.8.1', git='https://github.com/nats-io/nats-server.git', branch='v2.8.2')
+    version('2.8.0', git='https://github.com/nats-io/nats-server.git', branch='v2.8.2')
 
     # FIXME: Add dependencies if required.
-    depends_on('memcached')
-    depends_on('libmemcached')
-    depends_on('nats-c')
-    depends_on('nats-server-x@2.8.4-linux-386')
-    depends_on('mpi')
-    depends_on('protobuf-c')
-    depends_on('cereal')
-    depends_on('cityhash')
+    depends_on('go')
+
+    def setup_run_environment(self, env):
+        env.prepend_path('GOPATH', self.prefix)
+
+    def install(self, spec, prefix):
+        go = Executable('go')
+        go('install')
