@@ -1,0 +1,205 @@
+diff --git a/libmemcached/delete.cc b/libmemcached/delete.cc
+index 55a8b4c..fbaeed4 100644
+--- a/libmemcached/delete.cc
++++ b/libmemcached/delete.cc
+@@ -1,5 +1,5 @@
+ /*  vim:expandtab:shiftwidth=2:tabstop=2:smarttab:
+- * 
++ *
+  *  Libmemcached library
+  *
+  *  Copyright (C) 2011 Data Differential, http://datadifferential.com/
+@@ -156,13 +156,13 @@ memcached_return_t memcached_delete_by_key(memcached_st *shell,
+ 
+   if (expiration)
+   {
+-    return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT, 
++    return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT,
+                                memcached_literal_param("Memcached server version does not allow expiration of deleted items"));
+   }
+ 
+-  uint32_t server_key= memcached_generate_hash_with_redistribution(memc, group_key, group_key_length);
++  uint32_t server_key= atoi(group_key);
+   memcached_instance_st* instance= memcached_instance_fetch(memc, server_key);
+-  
++
+   bool is_buffering= memcached_is_buffering(instance->root);
+   bool is_replying= memcached_is_replying(instance->root);
+ 
+@@ -171,13 +171,13 @@ memcached_return_t memcached_delete_by_key(memcached_st *shell,
+   {
+     if (is_buffering)
+     {
+-      return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT, 
++      return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT,
+                                  memcached_literal_param("Delete triggers cannot be used if buffering is enabled"));
+     }
+ 
+     if (is_replying == false)
+     {
+-      return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT, 
++      return memcached_set_error(*memc, MEMCACHED_INVALID_ARGUMENTS, MEMCACHED_AT,
+                                  memcached_literal_param("Delete triggers cannot be used if MEMCACHED_BEHAVIOR_NOREPLY is set"));
+     }
+   }
+diff --git a/libmemcached/exist.cc b/libmemcached/exist.cc
+index 3afb42d..9b865d2 100644
+--- a/libmemcached/exist.cc
++++ b/libmemcached/exist.cc
+@@ -1,5 +1,5 @@
+ /*  vim:expandtab:shiftwidth=2:tabstop=2:smarttab:
+- * 
++ *
+  *  Libmemcached library
+  *
+  *  Copyright (C) 2011 Data Differential, http://datadifferential.com/
+@@ -88,7 +88,7 @@ static memcached_return_t binary_exist(Memcached *memc, memcached_instance_st* i
+   request.message.body.flags= 0;
+   request.message.body.expiration= htonl(2678400);
+ 
+-  request.message.header.request.bodylen= htonl((uint32_t) (key_length 
++  request.message.header.request.bodylen= htonl((uint32_t) (key_length
+                                                             +memcached_array_size(memc->_namespace)
+                                                             +request.message.header.request.extlen));
+ 
+@@ -143,7 +143,7 @@ memcached_return_t memcached_exist_by_key(memcached_st *shell,
+     return memcached_set_error(*memc, MEMCACHED_NOT_SUPPORTED, MEMCACHED_AT);
+   }
+ 
+-  uint32_t server_key= memcached_generate_hash_with_redistribution(memc, group_key, group_key_length);
++  uint32_t server_key= atoi(group_key);
+   memcached_instance_st* instance= memcached_instance_fetch(memc, server_key);
+ 
+   if (memcached_is_binary(memc))
+diff --git a/libmemcached/get.cc b/libmemcached/get.cc
+index 86d8cf2..74a10c5 100644
+--- a/libmemcached/get.cc
++++ b/libmemcached/get.cc
+@@ -1,5 +1,5 @@
+ /*  vim:expandtab:shiftwidth=2:tabstop=2:smarttab:
+- * 
++ *
+  *  Libmemcached library
+  *
+  *  Copyright (C) 2011-2013 Data Differential, http://datadifferential.com/
+@@ -80,7 +80,7 @@ char *memcached_get_by_key(memcached_st *shell,
+ 
+   /* Request the key */
+   *error= __mget_by_key_real(ptr, group_key, group_key_length,
+-                             (const char * const *)&key, &key_length, 
++                             (const char * const *)&key, &key_length,
+                              1, false);
+   if (ptr)
+   {
+@@ -97,7 +97,7 @@ char *memcached_get_by_key(memcached_st *shell,
+       }
+     }
+ 
+-    if (value_length) 
++    if (value_length)
+     {
+       *value_length= 0;
+     }
+@@ -233,7 +233,7 @@ static memcached_return_t __mget_by_key_real(memcached_st *ptr,
+   bool is_group_key_set= false;
+   if (group_key and group_key_length)
+   {
+-    master_server_key= memcached_generate_hash_with_redistribution(ptr, group_key, group_key_length);
++    master_server_key= atoi(group_key);
+     is_group_key_set= true;
+   }
+ 
+diff --git a/libmemcached/storage.cc b/libmemcached/storage.cc
+index 46ae15a..bbe2023 100644
+--- a/libmemcached/storage.cc
++++ b/libmemcached/storage.cc
+@@ -1,5 +1,5 @@
+ /*  vim:expandtab:shiftwidth=2:tabstop=2:smarttab:
+- * 
++ *
+  *  Libmemcached library
+  *
+  *  Copyright (C) 2011 Data Differential, http://datadifferential.com/
+@@ -83,7 +83,7 @@ static inline uint8_t can_by_encrypted(const memcached_storage_action_t verb)
+   case CAS_OP:
+   case REPLACE_OP:
+     return true;
+-    
++
+   case APPEND_OP:
+   case PREPEND_OP:
+     break;
+@@ -262,7 +262,7 @@ static memcached_return_t memcached_send_ascii(Memcached *ptr,
+   int flags_buffer_length= snprintf(flags_buffer, sizeof(flags_buffer), " %u", flags);
+   if (size_t(flags_buffer_length) >= sizeof(flags_buffer) or flags_buffer_length < 0)
+   {
+-    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT, 
++    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT,
+                                memcached_literal_param("snprintf(MEMCACHED_MAXIMUM_INTEGER_DISPLAY_LENGTH)"));
+   }
+ 
+@@ -270,7 +270,7 @@ static memcached_return_t memcached_send_ascii(Memcached *ptr,
+   int expiration_buffer_length= snprintf(expiration_buffer, sizeof(expiration_buffer), " %llu", (unsigned long long)expiration);
+   if (size_t(expiration_buffer_length) >= sizeof(expiration_buffer) or expiration_buffer_length < 0)
+   {
+-    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT, 
++    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT,
+                                memcached_literal_param("snprintf(MEMCACHED_MAXIMUM_INTEGER_DISPLAY_LENGTH)"));
+   }
+ 
+@@ -278,7 +278,7 @@ static memcached_return_t memcached_send_ascii(Memcached *ptr,
+   int value_buffer_length= snprintf(value_buffer, sizeof(value_buffer), " %llu", (unsigned long long)value_length);
+   if (size_t(value_buffer_length) >= sizeof(value_buffer) or value_buffer_length < 0)
+   {
+-    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT, 
++    return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT,
+                                memcached_literal_param("snprintf(MEMCACHED_MAXIMUM_INTEGER_DISPLAY_LENGTH)"));
+   }
+ 
+@@ -289,7 +289,7 @@ static memcached_return_t memcached_send_ascii(Memcached *ptr,
+     cas_buffer_length= snprintf(cas_buffer, sizeof(cas_buffer), " %llu", (unsigned long long)cas);
+     if (size_t(cas_buffer_length) >= sizeof(cas_buffer) or cas_buffer_length < 0)
+     {
+-      return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT, 
++      return memcached_set_error(*instance, MEMCACHED_MEMORY_ALLOCATION_FAILURE, MEMCACHED_AT,
+                                  memcached_literal_param("snprintf(MEMCACHED_MAXIMUM_INTEGER_DISPLAY_LENGTH)"));
+     }
+   }
+@@ -316,12 +316,12 @@ static memcached_return_t memcached_send_ascii(Memcached *ptr,
+   // If we should not reply, return with MEMCACHED_SUCCESS, unless error
+   if (reply == false)
+   {
+-    return memcached_success(rc) ? MEMCACHED_SUCCESS : rc; 
++    return memcached_success(rc) ? MEMCACHED_SUCCESS : rc;
+   }
+ 
+   if (flush == false)
+   {
+-    return memcached_success(rc) ? MEMCACHED_BUFFERED : rc; 
++    return memcached_success(rc) ? MEMCACHED_BUFFERED : rc;
+   }
+ 
+   if (rc == MEMCACHED_SUCCESS)
+@@ -372,7 +372,7 @@ static inline memcached_return_t memcached_send(memcached_st *shell,
+     return memcached_last_error(ptr);
+   }
+ 
+-  uint32_t server_key= memcached_generate_hash_with_redistribution(ptr, group_key, group_key_length);
++  uint32_t server_key= atoi(group_key);
+   memcached_instance_st* instance= memcached_instance_fetch(ptr, server_key);
+ 
+   WATCHPOINT_SET(instance->io_wait_count.read= 0);
+@@ -392,7 +392,7 @@ static inline memcached_return_t memcached_send(memcached_st *shell,
+   {
+     if (can_by_encrypted(verb) == false)
+     {
+-      return memcached_set_error(*ptr, MEMCACHED_NOT_SUPPORTED, MEMCACHED_AT, 
++      return memcached_set_error(*ptr, MEMCACHED_NOT_SUPPORTED, MEMCACHED_AT,
+                                  memcached_literal_param("Operation not allowed while encyrption is enabled"));
+     }
+ 
+@@ -595,4 +595,3 @@ memcached_return_t memcached_cas_by_key(memcached_st *ptr,
+                          key, key_length, value, value_length,
+                          expiration, flags, cas, CAS_OP);
+ }
+-

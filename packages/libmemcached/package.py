@@ -38,8 +38,10 @@ class Libmemcached(AutotoolsPackage):
 
     # FIXME: Add dependencies if required.
     depends_on('memcached')
+    variant('labios', default=False, description='Patches required by Labios')
 
     patch('memflush.patch')
+    patch('labios.patch', when='+labios')
 
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))

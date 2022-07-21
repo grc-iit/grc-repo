@@ -39,9 +39,9 @@ class Labios(CMakePackage):
 
     # FIXME: Add dependencies if required.
     depends_on('memcached')
-    depends_on('libmemcached')
+    depends_on('libmemcached +labios')
     depends_on('nats-c')
-    depends_on('nats-server-x@2.8.4-linux-386')
+    depends_on('nats-server')
     depends_on('mpi')
     depends_on('protobuf-c')
     depends_on('cereal')
