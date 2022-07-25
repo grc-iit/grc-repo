@@ -46,6 +46,8 @@ class Daos(Package):
             multi=False,
             description='OS Version')
 
+    patch('centos8_deps.patch')
+
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
         env.prepend_path('INCLUDE', os.path.join(self.prefix, 'include'))
