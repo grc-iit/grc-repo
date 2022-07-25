@@ -39,14 +39,7 @@ class Daos(Package):
 
     # FIXME: Add proper versions and checksums here.
     version('2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
-    phases = ["prepare", "build", "install"]
-    variant('sys',
-            default='centos8',
-            values=('centos8', 'centos7', 'ubuntu20', 'leap15'),
-            multi=False,
-            description='OS Version')
-
-    patch('centos8_deps.patch')
+    phases = ["build", "install"]
 
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
@@ -56,21 +49,6 @@ class Daos(Package):
         env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
         env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
         env.prepend_path('PATH', os.path.join(self.prefix, 'bin'))
-
-    def prepare(self, spec, prefix):
-        deps = Executable('sudo')
-        os = str(self.spec.variants['sys'])
-        if os == 'sys=ubuntu20':
-            deps('bash', './utils/scripts/install-ubuntu20.sh')
-        elif os == 'sys=centos8':
-            deps('bash', './utils/scripts/install-el8.sh')
-        elif os == 'os=centos7':
-            deps('bash', './utils/scripts/install-centos7.sh')
-        elif os == 'sys=leap15':
-            deps('bash', './utils/scripts/install-leap15.sh')
-        else:
-            print("Requires variant OS")
-            exit()
 
     def build_args(self, spec, prefix):
         args = [
