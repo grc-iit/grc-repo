@@ -37,24 +37,27 @@ class Labstor(CMakePackage):
     # FIXME: Add proper versions and checksums here.
     version('master', git='https://github.com/lukemartinlogan/labstor.git')
 
-    variant('uring', default=True, description='Compile LabStor with IOUring')
+    variant('liburing', default=True, description='Compile LabStor with IOUring')
     variant('spdk', default=True, description='Compile LabStor with SPDK')
     variant('dpdk', default=False, description='Compile LabStor with DPDK')
     variant('bench', default=True, description='Compile LabStor with benchmark tests')
 
     # FIXME: Add dependencies if required.
-    depends_on('mpi')
+    depends_on('mpich@3.2')
     depends_on('yaml-cpp')
     depends_on('spdk', when='+spdk')
     depends_on('dpdk', when='+dpdk')
+    depends_on('liburing', when='+liburing')
+
+    depends_on('fxmark', when='+bench')
+    depends_on('fio@3.26', when='+bench')
     depends_on('filebench', when='+bench')
     depends_on('ycsb', when='+bench')
-    depends_on('fxmark', when='+bench')
-    depends_on('fio', when='+bench')
 
     def cmake_args(self):
-        args = [
-            f"-DWITH_SPDK={self.spec['SPDK']}",
-            f"-DWITH_DPDK={self.spec['DPDK']}"
-        ]
+        args = []
+        if 'spdk' in self.spec:
+            args.append(f"-DWITH_SPDK={self.spec['spdk']}")
+        if 'dpdk' in self.spec:
+            args.append(f"-DWITH_DPDK={self.spec['dpdk']}")
         return args

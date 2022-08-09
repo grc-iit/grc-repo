@@ -38,7 +38,7 @@ class Spdk(AutotoolsPackage):
     maintainers = ['lukemartinlogan']
 
     # FIXME: Add proper versions and checksums here.
-    version('22.05', git="https://github.com/spdk/spdk", branch='v22.05.x', submodules=True)
+    version('21.10', git="https://github.com/spdk/spdk", branch='v21.10', submodules=True)
     phases = ["prepare", "configure", "build", "install"]
 
     depends_on('dpdk')

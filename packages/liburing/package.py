@@ -11,19 +11,18 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install liburing-git
+#     spack install liburing
 #
 # You can edit this file again by typing:
 #
-#     spack edit liburing-git
+#     spack edit liburing
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
 from spack import *
 
-
-class LiburingGit(Package):
+class Liburing(AutotoolsPackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -35,12 +34,4 @@ class LiburingGit(Package):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    # version('1.2.3', '0123456789abcdef0123456789abcdef')
-
-    # FIXME: Add dependencies if required.
-    # depends_on('foo')
-
-    def install(self, spec, prefix):
-        # FIXME: Unknown build system
-        make()
-        make('install')
+    version('master', git='https://github.com/axboe/liburing.git')
