@@ -39,7 +39,9 @@ class Daos(Package):
 
     # FIXME: Add proper versions and checksums here.
     version('2.0.3', git="https://github.com/daos-stack/daos.git", branch='v2.0.3', submodules=True)
-    version('2.0.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
+    version('2.0.2', git="https://github.com/daos-stack/daos.git", branch='v2.0.2', submodules=True)
+    version('2.0.1', git="https://github.com/daos-stack/daos.git", branch='v2.0.1', submodules=True)
+    version('master-2.0', git="https://github.com/daos-stack/daos.git", branch='release/2.0', submodules=True)
     phases = ["build", "install"]
 
     def setup_run_environment(self, env):
