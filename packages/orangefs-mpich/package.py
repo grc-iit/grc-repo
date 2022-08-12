@@ -46,8 +46,7 @@ class OrangefsMpich(AutotoolsPackage):
             "--enable-fast=O3",
             "--enable-romio",
             "--enable-shared",
-            "--with-pvfs2=`scspkg",
-            "pkg-root orangefs`",
+            f"--with-pvfs2={self.spec['orangefs'].prefix}",
             "--with-file-system=pvfs2"
         ]
         return args
