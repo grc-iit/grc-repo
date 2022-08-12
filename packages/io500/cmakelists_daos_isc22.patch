@@ -1,9 +1,9 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..79a8f51
+index 0000000..2838d66
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,66 @@
+@@ -0,0 +1,67 @@
 +cmake_minimum_required(VERSION 3.10)
 +project(io500)
 +
@@ -16,30 +16,27 @@ index 0000000..79a8f51
 +  mfu_dfind mfu mpi
 +)
 +
-+set(IOR_VERSION \"io500-isc21\")
-+add_compile_options("-DVERSION=${IOR_VERSION}")
++add_compile_options("-DVERSION=\"io500-isc22\"")
 +
 +add_library(io500
-+  src/util.c
 +  src/ini-parse.c
 +  src/phase_dbg.c
-+  src/phase_opt.c
-+  src/phase_timestamp.c
 +  src/phase_find.c
 +  src/phase_find_easy.c
 +  src/phase_find_hard.c
-+
++  src/phase_ior.c
 +  src/phase_ior_easy.c
 +  src/phase_ior_easy_read.c
-+  src/phase_ior.c
 +  src/phase_ior_easy_write.c
 +  src/phase_ior_hard.c
 +  src/phase_ior_hard_read.c
 +  src/phase_ior_hard_write.c
-+  src/phase_ior_rnd.c
-+  src/phase_ior_rnd_write.c
-+  src/phase_ior_rnd_read.c
-+
++  src/phase_ior_rnd1MB.c
++  src/phase_ior_rnd4K.c
++  src/phase_ior_rnd_read1MB.c
++  src/phase_ior_rnd_read4K.c
++  src/phase_ior_rnd_write1MB.c
++  src/phase_ior_rnd_write4K.c
 +  src/phase_mdtest.c
 +  src/phase_mdtest_easy.c
 +  src/phase_mdtest_easy_delete.c
@@ -50,10 +47,14 @@ index 0000000..79a8f51
 +  src/phase_mdtest_hard_read.c
 +  src/phase_mdtest_hard_stat.c
 +  src/phase_mdtest_hard_write.c
++  src/phase_mdworkbench_bench.c
 +  src/phase_mdworkbench.c
 +  src/phase_mdworkbench_create.c
 +  src/phase_mdworkbench_delete.c
-+  src/phase_mdworkbench_bench.c
++  src/phase_mdworkbench.h
++  src/phase_opt.c
++  src/phase_timestamp.c
++  src/util.c
 +)
 +target_link_libraries(io500 pfind lz4 ${LIBS})
 +

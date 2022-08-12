@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..e8fa4df
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,19 @@
++cmake_minimum_required(VERSION 3.15)
++project(pfind)
++
++include_directories(${CMAKE_SOURCE_DIR}/src)
++
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -Wextra -Wall -pipe -std=gnu99 -Wno-format-overflow -DLZ4")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wextra -Wall -pipe -std=gnu99 -Wno-format-overflow -DLZ4")
++
++add_library(pfind src/pfind.c src/pfind-options.c)
++target_link_libraries(pfind mpi m mfu lz4)
++
++add_executable(pfind-bin src/pfind-main.c)
++set_target_properties(pfind-bin PROPERTIES OUTPUT_NAME pfind)
++target_link_libraries(pfind-bin pfind)
++
++set(CMAKE_INSTALL_INCLUDEDIR ${CMAKE_INSTALL_PREFIX}/include)
++install(TARGETS pfind DESTINATION ${CMAKE_INSTALL_LIBDIR})
++install(TARGETS pfind-bin DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(FILES src/pfind-options.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

@@ -24,7 +24,7 @@ from spack import *
 import shutil
 import os
 
-class DaosIo500(CMakePackage):
+class Io500(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -36,15 +36,19 @@ class DaosIo500(CMakePackage):
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
 
-    version('2.0', git="https://github.com/IO500/io500.git", branch="io500-isc21")
+    version('isc22', git="https://github.com/IO500/io500.git", branch="io500-isc22")
 
-    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
-            values=('none', 'isc22'))
-    patch('cmakelists_daos.patch')
+    variant('daos', default=False, description='Compile io500 for DAOS')
+
+    patch('cmakelists_isc22.patch', when='~daos @isc22')
+    patch('cmakelists_daos_isc22.patch', when='+daos @isc22')
 
     # FIXME: Add dependencies if required.
-    depends_on('daos@2.1', when="daos=isc22")
-    depends_on('io500-mpifileutils', when="daos=none")
-    depends_on('io500-mpifileutils daos=isc22', when="daos=isc22")
-    depends_on('io500-ior', when="daos=none")
-    depends_on('io500-ior daos=isc22', when="daos=isc22")
+    depends_on('io500-mpifileutils', when="~daos @isc22")
+    depends_on('io500-ior@master.isc22', when="~daos @isc22")
+    depends_on('io500-pfind@master.isc22', when="~daos @isc22")
+
+    depends_on('daos@2.1', when="+daos @isc22")
+    depends_on('io500-mpifileutils@daos.isc22 +daos', when="+daos @isc22")
+    depends_on('io500-ior@daos.isc22 +daos', when="+daos @isc22")
+    depends_on('io500-pfind@daos.isc22 +daos', when="+daos @isc22")

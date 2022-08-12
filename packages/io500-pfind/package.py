@@ -11,48 +11,45 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install io500-ior
+#     spack install io500-pfind
 #
 # You can edit this file again by typing:
 #
-#     spack edit io500-ior
+#     spack edit io500-pfind
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
 from spack import *
-import os, shutil
+import os
 
-class Io500Ior(AutotoolsPackage):
+class Io500Pfind(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    url      = "https://github.com/hpc/ior.git"
+    url      = "https://github.com/mchaarawi/pfind"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('master.isc22', git='https://github.com/hpc/ior.git', commit='d3574d536643475269d37211e283b49ebd6732d7')
-
-    version('daos.isc22', git='https://github.com/hpc/ior.git', commit='d3574d536643475269d37211e283b49ebd6732d7')
-
-    phases = ['bootstrap', 'configure', 'build', 'install', 'install_headers']
+    version('master.isc22', git='https://github.com/VI4IO/pfind.git', commit='62c3a7e31')
+    version('daos.isc22', git='https://github.com/mchaarawi/pfind', branch='mfu_integration')
 
     variant('daos', default=False, description='Compile io500 for DAOS')
     conflicts('+daos', when='@master.isc22', msg="Cannot build master with daos")
     conflicts('~daos', when='@daos.isc22', msg="Must specify building pfind with daos")
 
+    patch('cmakelists_isc22.patch', when='~daos @master.isc22')
+    patch('cmakelists_daos_isc22.patch', when='+daos @daos.isc22')
+
     # FIXME: Add dependencies if required.
-    depends_on('autoconf', type='build')
-    depends_on('automake', type='build')
-    depends_on('libtool', type='build')
-
-    depends_on('io500-mpifileutils', when='@master.isc22')
-
-    depends_on('io500-mpifileutils@daos.isc22 +daos', when='+daos  @daos.isc22')
+    depends_on('lz4')
+    depends_on('mpi')
+    depends_on('io500-mpifileutils', when='~daos @master.isc22')
+    depends_on('io500-mpifileutils@daos.isc22 +daos', when='+daos @daos.isc22')
 
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
@@ -62,19 +59,3 @@ class Io500Ior(AutotoolsPackage):
         env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
         env.prepend_path('LD_LIBRARY_PATH', os.path.join(self.prefix, 'lib64'))
         env.prepend_path('PATH', os.path.join(self.prefix, 'bin'))
-
-    def configure_args(self):
-        args = []
-        if self.spec.variants['daos'].value:
-            args.append('--with-daos={}'.format(self.spec['daos'].prefix))
-        return args
-
-    def bootstrap(self, spec, prefix):
-        bstrap = Executable('./bootstrap')
-        bstrap()
-
-    def install_headers(self, spec, prefix):
-        os.mkdir(self.spec.prefix.include)
-        for f in os.listdir('src'):
-            if '.h' in f:
-                shutil.copy(os.path.join('src', f), self.spec.prefix.include)

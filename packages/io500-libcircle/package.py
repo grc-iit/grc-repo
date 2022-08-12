@@ -23,7 +23,7 @@
 from spack import *
 
 
-class Libcircle(AutotoolsPackage):
+class Io500Libcircle(AutotoolsPackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -36,9 +36,8 @@ class Libcircle(AutotoolsPackage):
 
     version('0.3.0', sha256='5ce38eb5b3c2b394bca1316310758f276c893dd3f4c15d7bc14ea05d3110ce58')
 
-    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
-            values=('none', 'isc22'))
-    patch('libcircle_daos.patch', when='daos=isc22')
+    variant('optimize', default=True, description='Compile libcircle with some optimizations')
+    patch('optimize.patch', when='+optimize')
 
     # FIXME: Add dependencies if required.
     depends_on('mpi')

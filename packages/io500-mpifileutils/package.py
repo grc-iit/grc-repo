@@ -23,7 +23,7 @@
 from spack import *
 import os
 
-class DaosMpifileutils(CMakePackage):
+class Io500Mpifileutils(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -36,19 +36,27 @@ class DaosMpifileutils(CMakePackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('2.0', git="https://github.com/mchaarawi/mpifileutils", branch="pfind_integration")
+    version('0.11.1', url='https://github.com/hpc/mpifileutils/archive/v0.10.tar.gz', sha256='e2cba53309b5b3ee581b6ff82e4e66f54628370cce694c34224ed947fece32d4')
+    version('0.11', url='https://github.com/hpc/mpifileutils/archive/v0.10.tar.gz', sha256='f5dc1b39077b3c04f79b2c335c4fd80306f8c57ecfbcacbb82cf532caf02b5fd')
+    version('0.10.1', url='https://github.com/hpc/mpifileutils/archive/v0.10.tar.gz', sha256='4c8409ef4140f6f557d0e93f0c1267baf5d893c203b29fb7a33d9bc3c5a5d25c')
+    version('0.10', url='https://github.com/hpc/mpifileutils/archive/v0.10.tar.gz', sha256='5a71a9acd9841c3c258fc0eaea942f18abcb40098714cc90462b57696c07e3c5')
 
-    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
-            values=('none', 'isc22'))
+    version('daos.isc22', git="https://github.com/mchaarawi/mpifileutils", branch="pfind_integration")
+
+    #Variants
+    variant('daos', default=False, description='Compile io500 for DAOS')
+    conflicts('+daos', when='@0.10:0.11.1')
+    conflicts('~daos', when='@daos.isc22')
 
     # FIXME: Add dependencies if required.
     depends_on('dtcmp')
-    depends_on('io500-libcircle', when='daos=none')
-    depends_on('io500-libcircle daos=isc22', when='daos=isc22')
-
+    depends_on('io500-libcircle')
+    depends_on('libcap')
+    depends_on('attr')
     depends_on('libarchive')
     depends_on('lwgrp')
     depends_on('mpi')
+    depends_on('daos@2.1', when='+daos @daos.isc22')
 
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
