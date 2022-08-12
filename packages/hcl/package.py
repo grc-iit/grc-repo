@@ -36,7 +36,7 @@ class Hcl(CMakePackage):
     version('0.0.5', branch='0.0.5')
     version('master', branch='master')
     depends_on('gcc@8.3.0')
-    depends_on('mpich@3.2.1:')
+    depends_on('orangefs-mpich@3.2.1:')
     depends_on('rpclib@2.2.1')
     depends_on('boost@1.74.0')
     def url_for_version(self, version):

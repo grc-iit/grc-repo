@@ -11,38 +11,43 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install orangefs
+#     spack install orangefs-mpich
 #
 # You can edit this file again by typing:
 #
-#     spack edit orangefs
+#     spack edit orangefs-mpich
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-import os
 from spack import *
 
 
-class Orangefs(AutotoolsPackage):
+class OrangefsMpich(AutotoolsPackage):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    url      = "http://download.orangefs.org/current/source/orangefs-2.9.8.tar.gz"
+    url      = "http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
 
-    version('2.9.8', sha256='589f7b6c4c8ea9b96b61427f9005ad0be258cb43702b47d9f304c8128ca25e30')
+    version('3.2', sha256='0778679a6b693d7b7caff37ff9d2856dc2bfc51318bf8373859bfa74253da3dc')
+
+    # FIXME: Add dependencies if required.
+    depends_on('orangefs')
 
     def configure_args(self):
         # FIXME: Add arguments other than --prefix
         # FIXME: If not needed delete this function
         args = [
-            "--with-kernel=/lib/modules/{}/build".format(os.uname().release),
+            "--enable-fast=O3",
+            "--enable-romio",
             "--enable-shared",
-            "--enable-fuse"
+            "--with-pvfs2=`scspkg",
+            "pkg-root orangefs`",
+            "--with-file-system=pvfs2"
         ]
         return args
