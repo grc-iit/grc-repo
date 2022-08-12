@@ -37,6 +37,8 @@ class Orangefs(AutotoolsPackage):
 
     version('2.9.8', sha256='589f7b6c4c8ea9b96b61427f9005ad0be258cb43702b47d9f304c8128ca25e30')
 
+    depends_on('bison')
+
     def configure_args(self):
         # FIXME: Add arguments other than --prefix
         # FIXME: If not needed delete this function
