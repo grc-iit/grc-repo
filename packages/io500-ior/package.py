@@ -11,11 +11,11 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install daos-ior
+#     spack install io500-ior
 #
 # You can edit this file again by typing:
 #
-#     spack edit daos-ior
+#     spack edit io500-ior
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
@@ -35,18 +35,20 @@ class DaosIor(AutotoolsPackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('2.0', git='https://github.com/hpc/ior.git', commit='0410a38e985e0862a9fd9abec017abffc4c5fc43')
+    version('2.1', git='https://github.com/hpc/ior.git', commit='d3574d536643475269d37211e283b49ebd6732d7')
 
     phases = ['bootstrap', 'configure', 'build', 'install', 'install_headers']
+
+    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
+            values=('none', 'isc22'))
 
     # FIXME: Add dependencies if required.
     depends_on('autoconf', type='build')
     depends_on('automake', type='build')
     depends_on('libtool', type='build')
 
-    depends_on('daos')
-    depends_on('mpi')
-    depends_on('daos-mpifileutils')
+    depends_on('io500-mpifileutils', when='daos=none')
+    depends_on('io500-mpifileutils daos=isc22', when='daos=isc22')
 
     def setup_run_environment(self, env):
         env.prepend_path('CPATH', os.path.join(self.prefix, 'include'))
@@ -58,9 +60,9 @@ class DaosIor(AutotoolsPackage):
         env.prepend_path('PATH', os.path.join(self.prefix, 'bin'))
 
     def configure_args(self):
-        args = [
-            '--with-daos={}'.format(self.spec['daos'].prefix)
-        ]
+        args = []
+        if self.spec.variants['daos'].value != 'none':
+            args.append('--with-daos={}'.format(self.spec['daos'].prefix))
         return args
 
     def bootstrap(self, spec, prefix):

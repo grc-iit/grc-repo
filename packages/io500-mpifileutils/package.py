@@ -11,11 +11,11 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install daos-mpifileutils
+#     spack install io500-mpifileutils
 #
 # You can edit this file again by typing:
 #
-#     spack edit daos-mpifileutils
+#     spack edit io500-mpifileutils
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
@@ -38,14 +38,16 @@ class DaosMpifileutils(CMakePackage):
     # FIXME: Add proper versions and checksums here.
     version('2.0', git="https://github.com/mchaarawi/mpifileutils", branch="pfind_integration")
 
-    patch('cmakelists.patch')
+    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
+            values=('none', 'isc22'))
 
     # FIXME: Add dependencies if required.
     depends_on('dtcmp')
-    depends_on('libcircle')
+    depends_on('io500-libcircle', when='daos=none')
+    depends_on('io500-libcircle daos=isc22', when='daos=isc22')
+
     depends_on('libarchive')
     depends_on('lwgrp')
-    depends_on('daos')
     depends_on('mpi')
 
     def setup_run_environment(self, env):
@@ -62,7 +64,7 @@ class DaosMpifileutils(CMakePackage):
             '-DCMAKE_INSTALL_PREFIX={}'.format(prefix),
             '-DENABLE_XATTRS=OFF',
             '-DWITH_DTCMP_PREFIX={}'.format(spec['dtcmp'].prefix),
-            '-DWITH_LibCircle_PREFIX={}'.format(spec['libcircle'].prefix)
+            '-DWITH_LibCircle_PREFIX={}'.format(spec['io500-libcircle'].prefix)
         ]
         return args
 

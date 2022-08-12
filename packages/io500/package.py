@@ -11,11 +11,11 @@
 # next to all the things you'll want to change. Once you've handled
 # them, you can save this file and test your package like this:
 #
-#     spack install daos-io500
+#     spack install io500
 #
 # You can edit this file again by typing:
 #
-#     spack edit daos-io500
+#     spack edit io500
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
@@ -37,10 +37,14 @@ class DaosIo500(CMakePackage):
     # maintainers = ['github_user1', 'github_user2']
 
     version('2.0', git="https://github.com/IO500/io500.git", branch="io500-isc21")
-    patch('cmakelists.patch')
+
+    variant('daos', default='none', description='Compile io500 for DAOS', multi=False,
+            values=('none', 'isc22'))
+    patch('cmakelists_daos.patch')
 
     # FIXME: Add dependencies if required.
-    depends_on('daos')
-    depends_on('daos-mpifileutils')
-    depends_on('daos-pfind')
-    depends_on('daos-ior')
+    depends_on('daos@2.1', when="daos=isc22")
+    depends_on('io500-mpifileutils', when="daos=none")
+    depends_on('io500-mpifileutils daos=isc22', when="daos=isc22")
+    depends_on('io500-ior', when="daos=none")
+    depends_on('io500-ior daos=isc22', when="daos=isc22")
