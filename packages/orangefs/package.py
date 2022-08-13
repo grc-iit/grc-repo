@@ -45,8 +45,10 @@ class Orangefs(AutotoolsPackage):
         # FIXME: Add arguments other than --prefix
         # FIXME: If not needed delete this function
         args = [
-            "--with-kernel=/lib/modules/{}/build".format(os.uname().release),
             "--enable-shared",
             "--enable-fuse"
         ]
+        #Kernel < 5.0 requires --with-kernel
+        if int(os.uname().release.split('.')[0]) < 5:
+            args.append(f"--with-kernel=/lib/modules/{os.uname().release}/build")
         return args
