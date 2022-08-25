@@ -12,7 +12,7 @@ index 0000000..a70239b
 +
 +set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2")
 +set(LIBS
-+  m mfu mpi
++  m mpi
 +)
 +
 +add_compile_options("-DVERSION=\"io500-isc22\"")

@@ -19,12 +19,11 @@
 #
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
-
 from spack import *
 import shutil
 import os
 
-class Io500(CMakePackage):
+class Io500(Package):
     """FIXME: Put a proper description of your package here."""
 
     # FIXME: Add a proper url for your package's homepage here.
@@ -40,15 +39,18 @@ class Io500(CMakePackage):
 
     variant('daos', default=False, description='Compile io500 for DAOS')
 
-    patch('cmakelists_isc22.patch', when='~daos @isc22')
-    patch('cmakelists_daos_isc22.patch', when='+daos @isc22')
+    patch('spack_build.patch', when='-daos')
 
     # FIXME: Add dependencies if required.
-    depends_on('io500-mpifileutils', when="~daos @isc22")
-    depends_on('io500-ior@master.isc22', when="~daos @isc22")
-    depends_on('io500-pfind@master.isc22', when="~daos @isc22")
-
     depends_on('daos@2.1', when="+daos @isc22")
     depends_on('io500-mpifileutils@daos.isc22 +daos', when="+daos @isc22")
-    depends_on('io500-ior@daos.isc22 +daos', when="+daos @isc22")
-    depends_on('io500-pfind@daos.isc22 +daos', when="+daos @isc22")
+    depends_on('mpi')
+
+    phases = ["build", "install"]
+
+    def build(self, spec, prefix):
+        spack_install = Executable('bash')
+        spack_install('spack_build.sh', str(spec['mpi']))
+
+    def install(self, spec, prefix):
+        shutil.copytree('bin', prefix)

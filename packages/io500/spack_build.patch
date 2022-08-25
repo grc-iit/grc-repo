@@ -1,0 +1,10 @@
+diff --git a/spack_build.sh b/spack_build.sh
+new file mode 100644
+index 0000000..c87ca66
+--- /dev/null
++++ b/spack_build.sh
+@@ -0,0 +1,4 @@
++MPI=$1
++spack load ${MPI}
++./prepare.sh
++make

@@ -43,7 +43,7 @@ class Labstor(CMakePackage):
     variant('bench', default=True, description='Compile LabStor with benchmark tests')
 
     # FIXME: Add dependencies if required.
-    depends_on('orangefs-mpich@3.2')
+    depends_on('mpich@3.2')
     depends_on('yaml-cpp')
     depends_on('spdk', when='+spdk')
     depends_on('dpdk', when='+dpdk')
