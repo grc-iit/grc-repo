@@ -3,6 +3,7 @@ from spack import *
 class HermesShm(CMakePackage):
     homepage = "https://github.com/lukemartinlogan/hermes_shm/wiki"
     git = "https://github.com/lukemartinlogan/hermes_shm.git"
+    url = "https://github.com/lukemartinlogan/hermes_shm/archive/refs/tags/v1.1.0.tar.gz"
     version('master', branch='master')
 
     # Main variants
