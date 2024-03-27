@@ -70,9 +70,9 @@ class Hermes(CMakePackage):
         if '+vfd' in self.spec:
             args.append('-HERMES_ENABLE_VFD=ON')
         if '+compress' in self.spec:
-            args.append(self.define('HERMES_ENABLE_COMPRESSION', 'ON'))
+            args.append(self.define('HERMES_ENABLE_COMPRESS', 'ON'))
         if '+encrypt' in self.spec:
-            args.append(self.define('HERMES_ENABLE_ENCRYPTION', 'ON'))
+            args.append(self.define('HERMES_ENABLE_ENCRYPT', 'ON'))
         return args
 
     def set_include(self, env, path):
