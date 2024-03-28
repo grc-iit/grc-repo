@@ -13,7 +13,7 @@ class Arrow(CMakePackage, CudaPackage):
     """
 
     homepage = "https://arrow.apache.org"
-    url = "https://github.com/apache/arrow.git"
+    git = "https://github.com/apache/arrow.git"
 
     version("15.0.1", branch='apache-arrow-15.0.1')
 
