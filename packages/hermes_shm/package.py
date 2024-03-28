@@ -18,7 +18,7 @@ class HermesShm(CMakePackage):
     variant('elf', default=False, description='Build elf toolkit')
 
     # Required deps
-    depends_on('catch2')
+    depends_on('catch2@3.0.1')
     depends_on('yaml-cpp')
     depends_on('doxygen')
     depends_on('libelf')
