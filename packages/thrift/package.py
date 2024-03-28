@@ -88,28 +88,3 @@ class Thrift(AutotoolsPackage):
         if "+pic" in self.spec:
             env.append_flags("CFLAGS", self.compiler.cc_pic_flag)
             env.append_flags("CXXFLAGS", self.compiler.cxx_pic_flag)
-
-    # def install(self, spec, prefix):
-    #     env["PY_PREFIX"] = prefix
-    #
-    #     # configure options
-    #     options = ["--prefix=%s" % prefix]
-    #
-    #     options.append("--with-boost=%s" % spec["boost"].prefix)
-    #     options.append("--enable-tests=no")
-    #
-    #     options.append("--with-nodejs=no")
-    #     options.append("--with-c=%s" % ("yes" if "+c" in spec else "no"))
-    #     options.append("--with-python=%s" % ("yes" if "+python" in spec else "no"))
-    #     options.append("--with-java=%s" % ("yes" if "+java" in spec else "no"))
-    #     options.append("--with-go=no")
-    #     options.append("--with-lua=no")
-    #     options.append("--with-php=no")
-    #     options.append("--with-kotlin=no")
-    #     options.append("--with-ruby=no")
-    #     options.append("--with-qt4=no")
-    #
-    #     configure(*options)
-    #
-    #     make()
-    #     make("install")
