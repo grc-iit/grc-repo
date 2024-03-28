@@ -41,6 +41,7 @@ class Hermes(CMakePackage):
     variant('encrypt', default=False, description='Build Adios tests')
     variant('compress', default=False, description='Build Adios tests')
 
+    depends_on('hermes_shm+elf')
     depends_on('hermes_shm+mochi')
     depends_on('hermes_shm+debug', when='+debug')
     depends_on('hermes_shm+mpiio')

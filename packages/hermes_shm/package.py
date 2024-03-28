@@ -15,11 +15,12 @@ class HermesShm(CMakePackage):
     variant('vfd', default=False, description='Build with HDF5 support')
     variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('adios', default=False, description='Build Adios support')
+    variant('elf', default=False, description='Build elf toolkit')
 
     # Required deps
-    depends_on('catch2@3.0.1')
+    depends_on('catch2')
     depends_on('yaml-cpp')
-    depends_on('doxygen@1.9.3')
+    depends_on('doxygen')
     depends_on('libelf')
 
     # Machine variants
@@ -68,6 +69,8 @@ class HermesShm(CMakePackage):
             args.append(self.define('HERMES_RPC_THALLIUM', 'ON'))
         if '+zmq' in self.spec:
             args.append(self.define('HERMES_ENABLE_ZMQ_TESTS', 'ON'))
+        if '+elf' in self.spec:
+            args.append(self.define('HERMES_USE_ELF', 'ON'))
         return args
 
     def set_include(self, env, path):
