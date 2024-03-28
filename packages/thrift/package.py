@@ -66,7 +66,8 @@ class Thrift(AutotoolsPackage):
         when="@0.16.0",
     )
 
-    def configure_args(self, spec):
+    def configure_args(self):
+        spec = self.spec
         options = []
         options.append("--with-boost=%s" % spec["boost"].prefix)
         options.append("--enable-tests=no")
