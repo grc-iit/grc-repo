@@ -5,10 +5,7 @@ class Chimaera(CMakePackage):
     git = "https://github.com/lukemartinlogan/chimaera.git"
 
     version('master',
-            branch='master', submodules=True)
-    version('dev', branch='dev', submodules=True)
-    version('priv', branch='dev',
-            git='https://github.com/lukemartinlogan/chimaera.git', submodules=True)
+            branch='main', submodules=True)
 
     depends_on('hermes_shm@master')
 
