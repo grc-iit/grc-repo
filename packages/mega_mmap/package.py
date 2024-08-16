@@ -9,7 +9,7 @@ class MegaMmap(CMakePackage):
     version('priv', branch='dev',
             git='https://github.com/lukemartinlogan/mega_mmap.git', submodules=True)
     depends_on('hermes@master')
-    depends_on('arrow')
+    depends_on('arrow +parquet')
 
     def cmake_args(self):
         args = []
