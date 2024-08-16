@@ -1,6 +1,6 @@
 from spack import *
 
-class Megammap(CMakePackage):
+class MegaMmap(CMakePackage):
     homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
     git = "https://github.com/grc-iit/mega_mmap.git"
 
