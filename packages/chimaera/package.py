@@ -15,6 +15,8 @@ class Chimaera(CMakePackage):
     variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('python', default=True, description='Support python libs for ML')
 
+    depends_on('hermes_shm+compress')
+    depends_on('hermes_shm+encrypt')
     depends_on('hermes_shm+elf')
     depends_on('hermes_shm+mochi')
     depends_on('hermes_shm+debug', when='+debug')
