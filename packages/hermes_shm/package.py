@@ -17,12 +17,12 @@ class HermesShm(CMakePackage):
     variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('adios', default=False, description='Build Adios support')
     variant('elf', default=False, description='Build elf toolkit')
+    variant('python', default=False, description='Build python')
 
     # Required deps
     depends_on('catch2@3.0.1')
     depends_on('yaml-cpp')
     depends_on('doxygen')
-    depends_on('libelf')
 
     # Machine variants
     variant('ares', default=False, description='Build in ares')
@@ -30,6 +30,7 @@ class HermesShm(CMakePackage):
                when='+ares')
 
     # Main dependencies
+    depends_on('libelf', when='+elf')
     depends_on('mochi-thallium+cereal@0.10.1', when='+mochi')
     depends_on('argobots@1.1+affinity')
     depends_on('cereal', when='+cereal')
@@ -39,6 +40,7 @@ class HermesShm(CMakePackage):
     depends_on('hdf5@1.14.0', when='+vfd')
     depends_on('libzmq', '+zmq')
     depends_on('adios2', when='+adios')
+    depends_on('py-pybind11', when='+python')
 
     # Compress variant
     variant('compress', default=False,
