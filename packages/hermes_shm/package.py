@@ -5,6 +5,7 @@ class HermesShm(CMakePackage):
     git = "https://github.com/lukemartinlogan/hermes_shm.git"
     url = "https://github.com/lukemartinlogan/hermes_shm/archive/refs/tags/v1.1.0.tar.gz"
     version('master', branch='master')
+    version('dev', branch='dev')
 
     # Main variants
     variant('debug', default=False, description='Build shared libraries')
