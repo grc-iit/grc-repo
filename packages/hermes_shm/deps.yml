@@ -1,0 +1,13 @@
+catch2@3.0.1
+yaml-cpp
+doxygen
+libelf
+libfabric
+mochi-thallium+cereal@0.10.1
+argobots@1.1+affinity
+cereal
+boost+context +fiber +coroutine +regex +system +filesystem +serialization +pic +math'
+mpi
+hdf5@1.14.0
+libzmq
+adios2
