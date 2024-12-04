@@ -13,9 +13,11 @@ class Chimaera(CMakePackage):
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
-    variant('python', default=True, description='Support python libs for ML')
+    # variant('python', default=True, description='Support python libs for ML')
 
     depends_on('hermes_shm@dev')
+    depends_on('hermes_shm+compress')
+    depends_on('hermes_shm+encrypt')
     depends_on('hermes_shm+elf')
     depends_on('hermes_shm+mochi')
     depends_on('hermes_shm+debug', when='+debug')
@@ -25,6 +27,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes_shm+ares', when='+ares')
     depends_on('hermes_shm+zmq', when='+zmq')
     depends_on('hermes_shm+python', when='+python')
+    depends_on('mpi')
 
     def cmake_args(self):
         args = []
