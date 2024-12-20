@@ -44,7 +44,7 @@ class HermesShm(CMakePackage):
     # Python dependencies
     depends_on('py-pybind11', when='+python')
     depends_on('python', when='+python')
-    # depends_on('py-pip', when='+python')
+    depends_on('py-pip', when='+python')
     # depends_on('py-scipy', when='+python')
     # depends_on('py-numpy', when='+python')
     # depends_on('py-scikit-learn', when='+python')
