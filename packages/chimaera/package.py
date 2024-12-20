@@ -26,7 +26,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes_shm+boost')
     depends_on('hermes_shm+ares', when='+ares')
     depends_on('hermes_shm+zmq', when='+zmq')
-    depends_on('hermes_shm+python', when='+python')
+    depends_on('hermes_shm+python')
     depends_on('mpi')
 
     def cmake_args(self):
