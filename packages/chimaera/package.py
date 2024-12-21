@@ -13,7 +13,7 @@ class Chimaera(CMakePackage):
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
-    # variant('python', default=True, description='Support python libs for ML')
+    variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('hermes_shm@dev')
     depends_on('hermes_shm+compress')
@@ -27,6 +27,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes_shm+ares', when='+ares')
     depends_on('hermes_shm+zmq', when='+zmq')
     depends_on('hermes_shm+python')
+    depends_on('hermes_shm+nocompile', when='+nocompile')
     depends_on('mpi')
 
     def cmake_args(self):
@@ -35,4 +36,6 @@ class Chimaera(CMakePackage):
             args.append('-DCMAKE_BUILD_TYPE=Debug')
         else:
             args.append('-DCMAKE_BUILD_TYPE=Release')
+        if '+nocompile' in self.spec:
+            args.append('-DCHIMAERA_NO_COMPILE=ON')
         return args
