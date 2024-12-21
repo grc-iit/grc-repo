@@ -6,6 +6,8 @@ class Chimaera(CMakePackage):
 
     version('master',
             branch='main', submodules=True)
+    version('dev',
+            branch='dev', submodules=True)
 
     depends_on('hermes_shm')
 
