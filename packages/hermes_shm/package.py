@@ -71,8 +71,9 @@ class HermesShm(CMakePackage):
 
     def cmake_args(self):
         args = []
+        # args.append(self.define('BUILD_HSHM_TESTS', 'OFF'))
         if '+debug' in self.spec:
-            args.append('-DCMAKE_BUILD_TYPE=Debug')
+            args.append(self.define('CMAKE_BUILD_TYPE', 'Debug'))
         if '+vfd' in self.spec:
             args.append(self.define('HERMES_ENABLE_VFD', 'ON'))
         if '+compress' in self.spec:
