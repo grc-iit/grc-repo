@@ -6,7 +6,7 @@ class HermesShm(CMakePackage):
     url = "https://github.com/lukemartinlogan/hermes_shm/archive/refs/tags/v1.1.0.tar.gz"
     version('master', branch='master')
     version('dev', branch='dev')
-
+    
     # Main variants
     variant('debug', default=False, description='Build shared libraries')
     variant('mochi', default=True, description='Build with mochi-thallium support')
@@ -18,6 +18,7 @@ class HermesShm(CMakePackage):
     variant('adios', default=False, description='Build Adios support')
     variant('elf', default=False, description='Build elf toolkit')
     variant('python', default=False, description='Build python')
+    variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     # Required deps
     depends_on('catch2@3.0.1')
@@ -84,4 +85,6 @@ class HermesShm(CMakePackage):
             args.append(self.define('HERMES_ENABLE_ZMQ_TESTS', 'ON'))
         if '+elf' in self.spec:
             args.append(self.define('HERMES_USE_ELF', 'ON'))
+        if '+nocompile' in self.spec:
+            args.append(self.define('HERMES_NO_COMPILE', 'ON'))
         return args
