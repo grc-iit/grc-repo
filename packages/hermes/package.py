@@ -34,6 +34,7 @@ class Hermes(CMakePackage):
     depends_on('hermes_shm+compress', when='+compress')
     depends_on('libelf')
     depends_on('chimaera')
+    depends_on('chimaera@dev+nocompile', when='+nocompile')
 
     def cmake_args(self):
         args = []
