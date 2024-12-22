@@ -21,6 +21,7 @@ class Hermes(CMakePackage):
     variant('adios', default=False, description='Build Adios tests')
     variant('encrypt', default=False, description='Build Adios tests')
     variant('compress', default=False, description='Build Adios tests')
+    variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('hermes_shm+elf')
     depends_on('hermes_shm+debug', when='+debug')
@@ -54,4 +55,6 @@ class Hermes(CMakePackage):
             args.append(self.define('HERMES_ENABLE_COMPRESS', 'ON'))
         if '+encrypt' in self.spec:
             args.append(self.define('HERMES_ENABLE_ENCRYPT', 'ON'))
+        if '+nocompile' in self.spec:
+            args.append(self.define('HERMES_NO_COMPILE', 'ON'))
         return args
