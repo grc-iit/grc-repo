@@ -13,6 +13,7 @@ class Chimaera(CMakePackage):
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('hermes-shm+compress')

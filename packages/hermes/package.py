@@ -25,6 +25,7 @@ class Hermes(CMakePackage):
     variant('adios', default=False, description='Build Adios tests')
     variant('encrypt', default=False, description='Include encryption libraries')
     variant('compress', default=False, description='Include compression libraries')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('hermes-shm@1.2.0')

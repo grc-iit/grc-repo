@@ -27,6 +27,7 @@ class HermesShm(CMakePackage):
     variant('adios', default=False, description='Build Adios support')
     variant('elf', default=False, description='Build elf toolkit')
     variant('python', default=False, description='Build python')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     # Required deps
