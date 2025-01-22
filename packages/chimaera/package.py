@@ -6,25 +6,31 @@ class Chimaera(CMakePackage):
 
     version('master',
             branch='main', submodules=True)
+    version('dev',
+            branch='dev', submodules=True)
 
-    depends_on('hermes_shm')
+    depends_on('hermes-shm')
 
-    # Common across hermes_shm and hermes
+    # Common across hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
-    variant('python', default=True, description='Support python libs for ML')
+    variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes_shm@dev')
-    depends_on('hermes_shm+elf')
-    depends_on('hermes_shm+mochi')
-    depends_on('hermes_shm+debug', when='+debug')
-    depends_on('hermes_shm+mpiio')
-    depends_on('hermes_shm+cereal')
-    depends_on('hermes_shm+boost')
-    depends_on('hermes_shm+ares', when='+ares')
-    depends_on('hermes_shm+zmq', when='+zmq')
-    depends_on('hermes_shm+python', when='+python')
+    depends_on('hermes-shm@dev')
+    depends_on('hermes-shm+compress')
+    depends_on('hermes-shm+encrypt')
+    depends_on('hermes-shm+elf')
+    depends_on('hermes-shm+mochi')
+    depends_on('hermes-shm+debug', when='+debug')
+    depends_on('hermes-shm+mpiio')
+    depends_on('hermes-shm+cereal')
+    depends_on('hermes-shm+boost')
+    depends_on('hermes-shm+ares', when='+ares')
+    depends_on('hermes-shm+zmq', when='+zmq')
+    depends_on('hermes-shm+python')
+    depends_on('hermes-shm+nocompile', when='+nocompile')
+    depends_on('mpi')
 
     def cmake_args(self):
         args = []
@@ -32,4 +38,6 @@ class Chimaera(CMakePackage):
             args.append('-DCMAKE_BUILD_TYPE=Debug')
         else:
             args.append('-DCMAKE_BUILD_TYPE=Release')
+        if '+nocompile' in self.spec:
+            args.append('-DCHIMAERA_NO_COMPILE=ON')
         return args

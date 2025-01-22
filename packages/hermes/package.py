@@ -10,36 +10,29 @@ class Hermes(CMakePackage):
     version('dev', branch='dev', submodules=True)
     version('priv', branch='dev',
             git='https://github.com/lukemartinlogan/hermes.git', submodules=True)
-    version("1.0.5-beta", sha256="1f3ba51a8beda4bc1314d6541b800de1525f5e233a6f498fcde6dc43562ddcb7")
-    version("1.0.0-beta", sha256="301084cced32aa00532ab4bebd638c31b0512c881ffab20bf5da4b7739defac2")
 
-    depends_on('hermes_shm')
-
-    # Common across hermes_shm and hermes
+    # Common across hermes-shm and hermes
     variant('mpiio', default=True, description='Enable MPI I/O adapter')
     variant('stdio', default=True, description='Enable STDIO adapter')
     variant('debug', default=False, description='Build shared libraries')
     variant('vfd', default=False, description='Enable HDF5 VFD')
     variant('ares', default=False, description='Enable full libfabric install')
-    variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('adios', default=False, description='Build Adios tests')
-    variant('encrypt', default=False, description='Build Adios tests')
-    variant('compress', default=False, description='Build Adios tests')
+    variant('encrypt', default=False, description='Include encryption libraries')
+    variant('compress', default=False, description='Include compression libraries')
+    variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes_shm+elf')
-    depends_on('hermes_shm+mochi')
-    depends_on('hermes_shm+debug', when='+debug')
-    depends_on('hermes_shm+mpiio')
-    depends_on('hermes_shm+cereal')
-    depends_on('hermes_shm+boost')
-    depends_on('hermes_shm+ares', when='+ares')
-    depends_on('hermes_shm+zmq', when='+zmq')
-    depends_on('hermes_shm+vfd', when='+vfd')
-    depends_on('hermes_shm+adios', when='+adios')
-    depends_on('hermes_shm+encrypt', when='+encrypt')
-    depends_on('hermes_shm+compress', when='+compress')
+    depends_on('hermes-shm+elf')
+    depends_on('hermes-shm+debug', when='+debug')
+    depends_on('hermes-shm+mpiio')
+    depends_on('hermes-shm+ares', when='+ares')
+    depends_on('hermes-shm+vfd', when='+vfd')
+    depends_on('hermes-shm+adios', when='+adios')
+    depends_on('hermes-shm+encrypt', when='+encrypt')
+    depends_on('hermes-shm+compress', when='+compress')
     depends_on('libelf')
     depends_on('chimaera')
+    depends_on('chimaera@dev+nocompile', when='+nocompile')
 
     def cmake_args(self):
         args = []
@@ -61,4 +54,6 @@ class Hermes(CMakePackage):
             args.append(self.define('HERMES_ENABLE_COMPRESS', 'ON'))
         if '+encrypt' in self.spec:
             args.append(self.define('HERMES_ENABLE_ENCRYPT', 'ON'))
+        if '+nocompile' in self.spec:
+            args.append(self.define('HERMES_NO_COMPILE', 'ON'))
         return args
