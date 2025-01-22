@@ -1,11 +1,11 @@
 # scs-repo
-Contains spack definitions for SCS lab packages.
+Contains spack definitions for GRC packages.
 
 ## Installation
 
 ```bash
-git clone https://github.com/scs-lab/scs-repo.git
-spack repo add scs-repo
+git clone https://github.com/grc-lab/grc-repo.git
+spack repo add grc-repo
 ```
 
 ## Dependencies
