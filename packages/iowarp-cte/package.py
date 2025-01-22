@@ -24,6 +24,10 @@ class IowarpCte(CMakePackage):
     variant('compress', default=False, description='Include compression libraries')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
+    depends_on('chimaera')
+    depends_on('chimaera -nocompile', when='~nocompile')
+    depends_on('chimaera +nocompile', when='+nocompile')
+
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
@@ -31,10 +35,7 @@ class IowarpCte(CMakePackage):
     depends_on('hermes-shm+vfd', when='+vfd')
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
-    depends_on('hermes-shm+compress', when='+compress')
-    depends_on('libelf')
-    depends_on('chimaera')
-    depends_on('chimaera+nocompile', when='+nocompile')
+    depends_on('hermes-shm+compress', when='+compress')    
 
     def cmake_args(self):
         args = []
