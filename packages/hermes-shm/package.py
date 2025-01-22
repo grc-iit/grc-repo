@@ -10,10 +10,11 @@ class HermesShm(CMakePackage):
     version('dev', branch='dev')
     version('priv', branch='dev', git='https://github.com/lukemartinlogan/hermes-shm.git')
     
-    # Versions used by Hermes 2.x
+    # Versions used by IoWarp CTE
+    version('2.0.0', tag='v2.0.0', git='https://github.com/grc-iit/hermes-shm.git')
 
     # Versions used by Hermes 1.x
-    version("1.2.0", tag="v1.2.0", git="https://github.com/grc-iit/hermes-shm.git")
+    version("1.2.0", tag="v1.2.0", git='https://github.com/grc-iit/hermes-shm.git')
 
     # Main variants
     variant('debug', default=False, description='Build shared libraries')

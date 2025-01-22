@@ -1,21 +1,18 @@
 from spack import *
 
-class Hermes(CMakePackage):
+class IowarpCte(CMakePackage):
     homepage = "https://grc.iit.edu/docs/hermes/main-scenario"
     url = "https://github.com/HDFGroup/hermes/tarball/master"
-    git = "https://github.com/HDFGroup/hermes.git"
+    git = "https://github.com/iowarp/content-transfer-engine.git"
 
     version('master',
             branch='master', 
-            submodules=True,
-            git='https://github.com/HDFGroup/hermes.git')
+            git='https://github.com/iowarp/content-transfer-engine.git')
     version('dev', branch='dev',
-             submodules=True, 
-             git='https://github.com/HDFGroup/hermes.git')
+             git='https://github.com/iowarp/content-transfer-engine.git')
+    version('priv', branch='dev',
+            git='https://github.com/lukemartinlogan/hermes.git')
     
-    # Versions for Hermes 1.x
-    version('1.2.1', tag='v1.2.1', git='https://github.com/HDFGroup/hermes.git', submodules=True)
-
     # Common across hermes-shm and hermes
     variant('mpiio', default=True, description='Enable MPI I/O adapter')
     variant('stdio', default=True, description='Enable STDIO adapter')
@@ -27,7 +24,10 @@ class Hermes(CMakePackage):
     variant('compress', default=False, description='Include compression libraries')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes-shm@1.2.0')
+    depends_on('chimaera')
+    depends_on('chimaera -nocompile', when='~nocompile')
+    depends_on('chimaera +nocompile', when='+nocompile')
+
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
@@ -35,8 +35,7 @@ class Hermes(CMakePackage):
     depends_on('hermes-shm+vfd', when='+vfd')
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
-    depends_on('hermes-shm+compress', when='+compress')
-    depends_on('libelf')
+    depends_on('hermes-shm+compress', when='+compress')    
 
     def cmake_args(self):
         args = []

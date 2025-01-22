@@ -9,15 +9,12 @@ class Chimaera(CMakePackage):
     version('dev',
             branch='dev', submodules=True)
 
-    depends_on('hermes-shm')
-
     # Common across hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes-shm@dev')
     depends_on('hermes-shm+compress')
     depends_on('hermes-shm+encrypt')
     depends_on('hermes-shm+elf')
@@ -29,7 +26,8 @@ class Chimaera(CMakePackage):
     depends_on('hermes-shm+ares', when='+ares')
     depends_on('hermes-shm+zmq', when='+zmq')
     depends_on('hermes-shm+python')
-    depends_on('hermes-shm+nocompile', when='+nocompile')
+    depends_on('hermes-shm -nocompile', when='~nocompile')
+    depends_on('hermes-shm +nocompile', when='+nocompile')
     depends_on('mpi')
 
     def cmake_args(self):
