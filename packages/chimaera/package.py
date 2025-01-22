@@ -9,8 +9,6 @@ class Chimaera(CMakePackage):
     version('dev',
             branch='dev', submodules=True)
 
-    depends_on('hermes-shm')
-
     # Common across hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
