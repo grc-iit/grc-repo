@@ -36,7 +36,8 @@ class IowarpCte(CMakePackage):
     depends_on('hermes-shm+vfd', when='+vfd')
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
-    depends_on('hermes-shm+compress', when='+compress')    
+    depends_on('hermes-shm+compress', when='+compress')
+    depends_on('py-jarvis-cd', when='+jarvis')
 
     def cmake_args(self):
         args = []

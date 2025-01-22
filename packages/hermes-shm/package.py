@@ -53,6 +53,7 @@ class HermesShm(CMakePackage):
     depends_on('adios2', when='+adios')
 
     # Python dependencies
+    depends_on('py-jarvis-cd', when='+jarvis')
     depends_on('py-pybind11', when='+python')
     depends_on('python', when='+python')
     depends_on('py-pip', when='+python')
