@@ -1,9 +1,9 @@
 from spack import *
 
 class HermesShm(CMakePackage):
-    homepage = "https://github.com/lukemartinlogan/hermes_shm/wiki"
-    git = "https://github.com/lukemartinlogan/hermes_shm.git"
-    url = "https://github.com/lukemartinlogan/hermes_shm/archive/refs/tags/v1.1.0.tar.gz"
+    homepage = "https://github.com/lukemartinlogan/hermes-shm/wiki"
+    git = "https://github.com/lukemartinlogan/hermes-shm.git"
+    url = "https://github.com/lukemartinlogan/hermes-shm/archive/refs/tags/v1.1.0.tar.gz"
     version('master', branch='master')
     version('dev', branch='dev')
     
@@ -75,17 +75,17 @@ class HermesShm(CMakePackage):
         if '+debug' in self.spec:
             args.append(self.define('CMAKE_BUILD_TYPE', 'Debug'))
         if '+vfd' in self.spec:
-            args.append(self.define('HERMES_ENABLE_VFD', 'ON'))
+            args.append(self.define('HSHM_ENABLE_VFD', 'ON'))
         if '+compress' in self.spec:
-            args.append(self.define('HERMES_ENABLE_COMPRESS', 'ON'))
+            args.append(self.define('HSHM_ENABLE_COMPRESS', 'ON'))
         if '+encrypt' in self.spec:
-            args.append(self.define('HERMES_ENABLE_ENCRYPT', 'ON'))
+            args.append(self.define('HSHM_ENABLE_ENCRYPT', 'ON'))
         if '+mochi' in self.spec:
-            args.append(self.define('HERMES_RPC_THALLIUM', 'ON'))
+            args.append(self.define('HSHM_RPC_THALLIUM', 'ON'))
         if '+zmq' in self.spec:
-            args.append(self.define('HERMES_ENABLE_ZMQ_TESTS', 'ON'))
+            args.append(self.define('HSHM_ENABLE_ZMQ_TESTS', 'ON'))
         if '+elf' in self.spec:
-            args.append(self.define('HERMES_USE_ELF', 'ON'))
+            args.append(self.define('HSHM_USE_ELF', 'ON'))
         if '+nocompile' in self.spec:
-            args.append(self.define('HERMES_NO_COMPILE', 'ON'))
+            args.append(self.define('HSHM_NO_COMPILE', 'ON'))
         return args
