@@ -22,6 +22,7 @@ class Hermes(CMakePackage):
     variant('compress', default=False, description='Include compression libraries')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
+    depends_on('hermes-shm@master', when='@master')
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
@@ -31,7 +32,7 @@ class Hermes(CMakePackage):
     depends_on('hermes-shm+encrypt', when='+encrypt')
     depends_on('hermes-shm+compress', when='+compress')
     depends_on('libelf')
-    depends_on('chimaera')
+    depends_on('chimaera', when='@priv')
     depends_on('chimaera@dev+nocompile', when='+nocompile')
 
     def cmake_args(self):
