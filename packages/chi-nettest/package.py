@@ -1,8 +1,8 @@
 from spack import *
 
 class ChiNettest(CMakePackage):
-    homepage = "https://github.com/lukemartinlogan/chi_nettest.git"
-    git = "https://github.com/lukemartinlogan/chi_nettest.git"
+    homepage = "https://github.com/lukemartinlogan/chi-nettest.git"
+    git = "https://github.com/lukemartinlogan/chi-nettest.git"
     version('main', branch='main')
     
     # Required deps
