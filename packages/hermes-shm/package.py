@@ -2,11 +2,19 @@ from spack import *
 
 class HermesShm(CMakePackage):
     homepage = "https://github.com/lukemartinlogan/hermes-shm/wiki"
-    git = "https://github.com/lukemartinlogan/hermes-shm.git"
-    url = "https://github.com/lukemartinlogan/hermes-shm/archive/refs/tags/v1.1.0.tar.gz"
+    git = "https://github.com/grc-iit/hermes-shm.git"
+    url = "https://github.com/grc-iit/hermes-shm/archive/refs/tags/v1.2.0.tar.gz"
+
+    # Branch versions
     version('master', branch='master')
     version('dev', branch='dev')
+    version('priv', branch='dev', git='https://github.com/lukemartinlogan/hermes-shm.git')
     
+    # Versions used by Hermes 2.x
+
+    # Versions used by Hermes 1.x
+    version("1.2.0", tag="v1.2.0", git="https://github.com/grc-iit/hermes-shm.git")
+
     # Main variants
     variant('debug', default=False, description='Build shared libraries')
     variant('mochi', default=True, description='Build with mochi-thallium support')

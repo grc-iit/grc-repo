@@ -1,15 +1,22 @@
 from spack import *
 
 class Hermes(CMakePackage):
-    homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
+    homepage = "https://grc.iit.edu/docs/hermes/main-scenario"
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/HDFGroup/hermes.git"
 
     version('master',
-            branch='master', submodules=True)
-    version('dev', branch='dev', submodules=True)
+            branch='master', 
+            submodules=True,
+            git='https://github.com/HDFGroup/hermes.git')
+    version('dev', branch='dev',
+             submodules=True, 
+             git='https://github.com/HDFGroup/hermes.git')
     version('priv', branch='dev',
             git='https://github.com/lukemartinlogan/hermes.git', submodules=True)
+    
+    # Versions for Hermes 1.x
+    version('1.2.1', tag='v1.2.1', git='https://github.com/HDFGroup/hermes.git', submodules=True)
 
     # Common across hermes-shm and hermes
     variant('mpiio', default=True, description='Enable MPI I/O adapter')
@@ -22,7 +29,7 @@ class Hermes(CMakePackage):
     variant('compress', default=False, description='Include compression libraries')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes-shm@master', when='@master')
+    depends_on('hermes-shm@1.2.0', when='@1:')
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
