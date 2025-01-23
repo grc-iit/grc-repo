@@ -25,6 +25,7 @@ class Hermes(CMakePackage):
     variant('adios', default=False, description='Build Adios tests')
     variant('encrypt', default=False, description='Include encryption libraries')
     variant('compress', default=False, description='Include compression libraries')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('hermes-shm@1.2.0')
@@ -36,7 +37,7 @@ class Hermes(CMakePackage):
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
     depends_on('hermes-shm+compress', when='+compress')
-    depends_on('libelf')
+    depends_on('py-jarvis-cd', when='+jarvis')
 
     def cmake_args(self):
         args = []

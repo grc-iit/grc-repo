@@ -22,12 +22,14 @@ class IowarpCte(CMakePackage):
     variant('adios', default=False, description='Build Adios tests')
     variant('encrypt', default=False, description='Include encryption libraries')
     variant('compress', default=False, description='Include compression libraries')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     depends_on('chimaera')
     depends_on('chimaera -nocompile', when='~nocompile')
     depends_on('chimaera +nocompile', when='+nocompile')
 
+    depends_on('hermes-shm@2:')
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
@@ -35,7 +37,8 @@ class IowarpCte(CMakePackage):
     depends_on('hermes-shm+vfd', when='+vfd')
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
-    depends_on('hermes-shm+compress', when='+compress')    
+    depends_on('hermes-shm+compress', when='+compress')
+    depends_on('py-jarvis-cd', when='+jarvis')
 
     def cmake_args(self):
         args = []

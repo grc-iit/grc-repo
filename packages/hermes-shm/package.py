@@ -27,6 +27,7 @@ class HermesShm(CMakePackage):
     variant('adios', default=False, description='Build Adios support')
     variant('elf', default=False, description='Build elf toolkit')
     variant('python', default=False, description='Build python')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     # Required deps
@@ -42,16 +43,17 @@ class HermesShm(CMakePackage):
     # Main dependencies
     depends_on('libelf', when='+elf')
     depends_on('mochi-thallium+cereal@0.10.1', when='+mochi')
-    depends_on('argobots@1.1+affinity')
+    depends_on('argobots@1.1+affinity', when='+mochi')
     depends_on('cereal', when='+cereal')
     depends_on('boost@1.7: +context +fiber +coroutine +regex +system +filesystem +serialization +pic +math',
                when='+boost')
     depends_on('mpi', when='+mpiio')
     depends_on('hdf5@1.14.0', when='+vfd')
-    depends_on('libzmq', '+zmq')
+    depends_on('libzmq', when='+zmq')
     depends_on('adios2', when='+adios')
 
     # Python dependencies
+    depends_on('py-jarvis-cd', when='+jarvis')
     depends_on('py-pybind11', when='+python')
     depends_on('python', when='+python')
     depends_on('py-pip', when='+python')

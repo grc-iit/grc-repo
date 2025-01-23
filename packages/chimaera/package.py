@@ -13,8 +13,10 @@ class Chimaera(CMakePackage):
     variant('debug', default=False, description='Build shared libraries')
     variant('ares', default=False, description='Enable full libfabric install')
     variant('zmq', default=False, description='Build ZeroMQ tests')
+    variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
+    depends_on('hermes-shm@2:')
     depends_on('hermes-shm+compress')
     depends_on('hermes-shm+encrypt')
     depends_on('hermes-shm+elf')
@@ -28,6 +30,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes-shm+python')
     depends_on('hermes-shm -nocompile', when='~nocompile')
     depends_on('hermes-shm +nocompile', when='+nocompile')
+    depends_on('py-jarvis-cd', when='+jarvis')
     depends_on('mpi')
 
     def cmake_args(self):
