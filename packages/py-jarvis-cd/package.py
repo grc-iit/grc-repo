@@ -7,12 +7,13 @@ from spack import *
 
 
 class PyJarvisCd(PythonPackage):
-    homepage = "https://github.com/lukemartinlogan/jarvis-cd.git"
-    git      = "https://github.com/lukemartinlogan/jarvis-cd.git"
+    homepage = "grc.iit.edu/docs/jarvis/jarvis-cd/index"
+    git      = "https://github.com/grc-iit/jarvis-cd.git"
 
     import_modules = ['typing']
 
-    version('master', branch='master')
+    version('master', branch='master', git='https://github.com/grc-iit/jarvis-cd.git')
+    version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-cd.git')
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))
