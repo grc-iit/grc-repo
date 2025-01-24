@@ -1,6 +1,6 @@
 from spack import *
 
-class IowarpCte(CMakePackage):
+class Iowarp(CMakePackage):
     homepage = "https://grc.iit.edu/docs/hermes/main-scenario"
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/iowarp/content-transfer-engine.git"
