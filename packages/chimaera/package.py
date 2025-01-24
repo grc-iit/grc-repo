@@ -30,7 +30,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes-shm+python')
     depends_on('hermes-shm -nocompile', when='~nocompile')
     depends_on('hermes-shm +nocompile', when='+nocompile')
-    depends_on('py-jarvis-cd', when='+jarvis')
+    depends_on('py-jarvis-cd@master', when='+jarvis')
     depends_on('mpi')
 
     def cmake_args(self):
