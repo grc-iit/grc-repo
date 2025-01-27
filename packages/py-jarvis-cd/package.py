@@ -22,4 +22,5 @@ class PyJarvisCd(PythonPackage):
     depends_on('py-pyyaml', type=('build', 'run'))
     depends_on('py-jarvis-util', type=('build', 'run'))
     depends_on('chi-nettest', type=('build', 'run'))
+    depends_on('py-jarvis-util@priv', type=('build', 'run'), when='@priv')
 
