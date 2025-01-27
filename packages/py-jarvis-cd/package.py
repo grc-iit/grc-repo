@@ -12,7 +12,7 @@ class PyJarvisCd(PythonPackage):
 
     import_modules = ['typing']
 
-    version('master', branch='master', git='https://github.com/grc-iit/jarvis-cd.git')
+    version('master', branch='master', git='https://github.com/grc-iit/jarvis-cd.git', preferred=True)
     version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-cd.git')
 
     depends_on('python@3:', type=('build', 'run'))

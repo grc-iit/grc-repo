@@ -13,7 +13,7 @@ class PyJarvisUtil(PythonPackage):
     homepage = "grc.iit.edu/docs/jarvis/jarvis-util/index"
     git      = "https://github.com/grc-iit/jarvis-util.git"
 
-    version('master', branch='master')
+    version('master', branch='master', preferred=True)
     version('priv', branch='priv', git='https://github.com/lukemartinlogan/jarvis-util.git')
 
     depends_on('python@3:', type=('build', 'run'))
