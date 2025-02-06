@@ -6,7 +6,7 @@
 from spack import *
 
 
-class PyJarvisCd(PythonPackage):
+class PyChimaeraUtil(PythonPackage):
     homepage = "grc.iit.edu/docs/jarvis/jarvis-cd/index"
     git      = "https://github.com/grc-iit/chimaera-util.git"
 
