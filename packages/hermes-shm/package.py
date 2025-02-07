@@ -8,7 +8,7 @@ class HermesShm(CMakePackage):
     # Branch versions
     version('main', branch='master', preferred=True)
     version('dev', branch='dev')
-    version('priv', branch='dev', git='https://github.com/lukemartinlogan/hermes-shm.git')
+    version('priv', branch='master', git='https://github.com/lukemartinlogan/hermes-shm.git')
     
     # Versions used by IoWarp CTE
     version('2.0.0', tag='v2.0.0', git='https://github.com/grc-iit/hermes-shm.git')

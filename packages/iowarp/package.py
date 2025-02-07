@@ -11,7 +11,7 @@ class Iowarp(CMakePackage):
             preferred=True)
     version('dev', branch='dev',
              git='https://github.com/iowarp/content-transfer-engine.git')
-    version('priv', branch='dev',
+    version('priv', branch='main',
             git='https://github.com/lukemartinlogan/hermes.git')
     
     # Common across hermes-shm and hermes
