@@ -15,7 +15,7 @@ class PyVanidl(PythonPackage):
 
     import_modules = ['typing']
 
-    version('master', branch='master')
+    version('main', branch='master')
     version('0.0.1', branch='v0.0.1')
 
     depends_on('python@3:', type=('build', 'run'))

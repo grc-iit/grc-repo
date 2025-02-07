@@ -5,7 +5,7 @@ class Hermes(CMakePackage):
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/HDFGroup/hermes.git"
 
-    version('master',
+    version('main',
             branch='master', 
             submodules=True,
             git='https://github.com/HDFGroup/hermes.git')

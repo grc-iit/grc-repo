@@ -13,7 +13,7 @@ class PyScspkg(PythonPackage):
     homepage = "https://github.com/grc-iit/scspkg"
     git      = "https://github.com/grc-iit/scspkg.git"
 
-    version('master', branch='master', preferred=True)
+    version('main', branch='master', preferred=True)
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))

@@ -34,4 +34,4 @@ class Liburing(AutotoolsPackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('master', git='https://github.com/axboe/liburing.git')
+    version('main', git='https://github.com/axboe/liburing.git')

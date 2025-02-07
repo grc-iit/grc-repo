@@ -5,7 +5,7 @@ class Iowarp(CMakePackage):
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/iowarp/content-transfer-engine.git"
 
-    version('master',
+    version('main',
             branch='master', 
             git='https://github.com/iowarp/content-transfer-engine.git')
     version('dev', branch='dev',

@@ -12,7 +12,7 @@ class PyChimaeraUtil(PythonPackage):
 
     import_modules = ['typing']
 
-    version('master', branch='master', git='https://github.com/grc-iit/chimaera-util.git', preferred=True)
+    version('main', branch='master', git='https://github.com/grc-iit/chimaera-util.git', preferred=True)
     version('priv', branch='master', git='https://github.com/lukemartinlogan/chimaera-util.git')
 
     depends_on('python@3:', type=('build', 'run'))
