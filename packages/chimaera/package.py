@@ -4,8 +4,8 @@ class Chimaera(CMakePackage):
     homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
     git = "https://github.com/lukemartinlogan/chimaera.git"
 
-    version('master',
-            branch='main', submodules=True)
+    version('main',
+            branch='main', submodules=True, preferred=True)
     version('dev',
             branch='dev', submodules=True)
 

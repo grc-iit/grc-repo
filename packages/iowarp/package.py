@@ -7,7 +7,8 @@ class Iowarp(CMakePackage):
 
     version('main',
             branch='master', 
-            git='https://github.com/iowarp/content-transfer-engine.git')
+            git='https://github.com/iowarp/content-transfer-engine.git',
+            preferred=True)
     version('dev', branch='dev',
              git='https://github.com/iowarp/content-transfer-engine.git')
     version('priv', branch='dev',
