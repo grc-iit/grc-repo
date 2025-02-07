@@ -29,6 +29,8 @@ class Iowarp(CMakePackage):
     depends_on('chimaera')
     depends_on('chimaera -nocompile', when='~nocompile')
     depends_on('chimaera +nocompile', when='+nocompile')
+    depends_on('chimaera@priv', when='@priv')
+    depends_on('chimaera@dev', when='@dev')
 
     depends_on('hermes-shm@2:')
     depends_on('hermes-shm+elf')
