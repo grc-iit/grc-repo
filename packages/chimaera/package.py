@@ -8,6 +8,8 @@ class Chimaera(CMakePackage):
             branch='main', submodules=True, preferred=True)
     version('dev',
             branch='dev', submodules=True)
+    version('priv',
+            branch='main', submodules=True, git='https://github.com/lukemartinlogan/chimaera.git')
 
     # Common across hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
