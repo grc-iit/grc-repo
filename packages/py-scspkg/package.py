@@ -6,19 +6,17 @@
 from spack import *
 
 
-class PyJarvisUtil(PythonPackage):
+class PyScspkg(PythonPackage):
     """This is a backport of the standard library typing module to Python
     versions older than 3.6."""
 
-    homepage = "grc.iit.edu/docs/jarvis/jarvis-util/index"
-    git      = "https://github.com/grc-iit/jarvis-util.git"
+    homepage = "https://github.com/grc-iit/scspkg"
+    git      = "https://github.com/grc-iit/scspkg.git"
 
-    version('main', branch='master', git='https://github.com/grc-iit/jarvis-util.git', preferred=True)
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-util.git')
+    version('main', branch='master', preferred=True)
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))
     depends_on('py-pip', type=('build', 'run'))
-    depends_on('py-pyyaml', type=('build', 'run'))
-    depends_on('py-tabulate', type=('build', 'run'))
+    depends_on('py-jarvis-util', type=('build', 'run'))
     

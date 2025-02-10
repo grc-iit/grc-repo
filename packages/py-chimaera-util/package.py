@@ -6,22 +6,19 @@
 from spack import *
 
 
-class PyJarvisCd(PythonPackage):
+class PyChimaeraUtil(PythonPackage):
     homepage = "grc.iit.edu/docs/jarvis/jarvis-cd/index"
-    git      = "https://github.com/grc-iit/jarvis-cd.git"
+    git      = "https://github.com/grc-iit/chimaera-util.git"
 
     import_modules = ['typing']
 
-    version('main', branch='master', git='https://github.com/grc-iit/jarvis-cd.git', preferred=True)
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-cd.git')
+    version('main', branch='master', git='https://github.com/grc-iit/chimaera-util.git', preferred=True)
+    version('priv', branch='master', git='https://github.com/lukemartinlogan/chimaera-util.git')
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))
     depends_on('py-pip', type=('build', 'run'))
-    depends_on('py-pandas', type=('build', 'run'))
     depends_on('py-pyyaml', type=('build', 'run'))
     depends_on('py-jarvis-util', type=('build', 'run'))
-    depends_on('chi-nettest', type=('build', 'run'))
     depends_on('py-jarvis-util@priv', type=('build', 'run'), when='@priv')
-    depends_on('py-scspkg', type=('build', 'run'))
 

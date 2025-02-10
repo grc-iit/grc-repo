@@ -4,10 +4,12 @@ class Chimaera(CMakePackage):
     homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
     git = "https://github.com/lukemartinlogan/chimaera.git"
 
-    version('master',
-            branch='main', submodules=True)
+    version('main',
+            branch='main', submodules=True, preferred=True)
     version('dev',
             branch='dev', submodules=True)
+    version('priv',
+            branch='main', submodules=True, git='https://github.com/lukemartinlogan/chimaera.git')
 
     # Common across hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
@@ -16,7 +18,9 @@ class Chimaera(CMakePackage):
     variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('hermes-shm@2:')
+    depends_on('hermes-shm@main', when='@main')
+    depends_on('hermes-shm@dev', when='@dev')
+    depends_on('hermes-shm@priv', when='@priv')
     depends_on('hermes-shm+compress')
     depends_on('hermes-shm+encrypt')
     depends_on('hermes-shm+elf')
@@ -31,6 +35,7 @@ class Chimaera(CMakePackage):
     depends_on('hermes-shm -nocompile', when='~nocompile')
     depends_on('hermes-shm +nocompile', when='+nocompile')
     depends_on('py-jarvis-cd', when='+jarvis')
+    depends_on('py-chimaera-util')
     depends_on('mpi')
 
     def cmake_args(self):

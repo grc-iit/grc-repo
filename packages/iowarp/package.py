@@ -5,12 +5,13 @@ class Iowarp(CMakePackage):
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/iowarp/content-transfer-engine.git"
 
-    version('master',
+    version('main',
             branch='master', 
-            git='https://github.com/iowarp/content-transfer-engine.git')
+            git='https://github.com/iowarp/content-transfer-engine.git',
+            preferred=True)
     version('dev', branch='dev',
              git='https://github.com/iowarp/content-transfer-engine.git')
-    version('priv', branch='dev',
+    version('priv', branch='main',
             git='https://github.com/lukemartinlogan/hermes.git')
     
     # Common across hermes-shm and hermes
@@ -28,8 +29,10 @@ class Iowarp(CMakePackage):
     depends_on('chimaera')
     depends_on('chimaera -nocompile', when='~nocompile')
     depends_on('chimaera +nocompile', when='+nocompile')
+    depends_on('chimaera@main', when='@main')
+    depends_on('chimaera@priv', when='@priv')
+    depends_on('chimaera@dev', when='@dev')
 
-    depends_on('hermes-shm@2:')
     depends_on('hermes-shm+elf')
     depends_on('hermes-shm+debug', when='+debug')
     depends_on('hermes-shm+mpiio')
@@ -38,7 +41,7 @@ class Iowarp(CMakePackage):
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
     depends_on('hermes-shm+compress', when='+compress')
-    depends_on('py-jarvis-cd@master', when='+jarvis')
+    depends_on('py-jarvis-cd', when='+jarvis')
 
     def cmake_args(self):
         args = []

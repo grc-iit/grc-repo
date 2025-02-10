@@ -5,7 +5,7 @@ class Hermes(CMakePackage):
     url = "https://github.com/HDFGroup/hermes/tarball/master"
     git = "https://github.com/HDFGroup/hermes.git"
 
-    version('master',
+    version('main',
             branch='master', 
             submodules=True,
             git='https://github.com/HDFGroup/hermes.git')
@@ -37,7 +37,7 @@ class Hermes(CMakePackage):
     depends_on('hermes-shm+adios', when='+adios')
     depends_on('hermes-shm+encrypt', when='+encrypt')
     depends_on('hermes-shm+compress', when='+compress')
-    depends_on('py-jarvis-cd@master', when='+jarvis')
+    depends_on('py-jarvis-cd', when='+jarvis')
 
     def cmake_args(self):
         args = []

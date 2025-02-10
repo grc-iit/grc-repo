@@ -31,10 +31,10 @@ class Hcl(CMakePackage):
     git     = "https://bitbucket.org/scs-io/hcl.git"
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
-    #version('master', sha256='2857965ed3df95cc87f23c6b7c53b9403ceb87504b7c2be88b1c68ea9525d381')
+    #version('main', sha256='2857965ed3df95cc87f23c6b7c53b9403ceb87504b7c2be88b1c68ea9525d381')
     version('0.0.4', branch='release/0.0.4')
     version('0.0.5', branch='0.0.5')
-    version('master', branch='master')
+    version('main', branch='master')
     depends_on('gcc@8.3.0')
     depends_on('mpich@3.2.1:')
     depends_on('rpclib@2.2.1')

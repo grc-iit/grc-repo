@@ -31,7 +31,7 @@ class Symbios(CMakePackage):
 
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
-    version('master', branch='master')
+    version('main', branch='master')
     depends_on('gcc@8.3.0', when='@master')
     depends_on('mpich@3.3.2', when='@master')
     depends_on('rpclib@2.2.1', when='@master')

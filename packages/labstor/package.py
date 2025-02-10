@@ -35,7 +35,7 @@ class Labstor(CMakePackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions and checksums here.
-    version('master', git='https://github.com/lukemartinlogan/labstor.git')
+    version('main', git='https://github.com/lukemartinlogan/labstor.git')
 
     variant('liburing', default=True, description='Compile LabStor with IOUring')
     variant('spdk', default=True, description='Compile LabStor with SPDK')

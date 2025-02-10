@@ -6,9 +6,9 @@ class HermesShm(CMakePackage):
     url = "https://github.com/grc-iit/hermes-shm/archive/refs/tags/v1.2.0.tar.gz"
 
     # Branch versions
-    version('master', branch='master')
+    version('main', branch='master', preferred=True)
     version('dev', branch='dev')
-    version('priv', branch='dev', git='https://github.com/lukemartinlogan/hermes-shm.git')
+    version('priv', branch='master', git='https://github.com/lukemartinlogan/hermes-shm.git')
     
     # Versions used by IoWarp CTE
     version('2.0.0', tag='v2.0.0', git='https://github.com/grc-iit/hermes-shm.git')
@@ -53,7 +53,7 @@ class HermesShm(CMakePackage):
     depends_on('adios2', when='+adios')
 
     # Python dependencies
-    depends_on('py-jarvis-cd@master', when='+jarvis')
+    depends_on('py-jarvis-cd', when='+jarvis')
     depends_on('py-pybind11', when='+python')
     depends_on('python', when='+python')
     depends_on('py-pip', when='+python')

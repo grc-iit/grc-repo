@@ -35,7 +35,7 @@ class Labios(CMakePackage):
     # maintainers = ['github_user1', 'github_user2']
 
     # FIXME: Add proper versions here.
-    version('master', git="https://github.com/lukemartinlogan/labios.git", branch='master')
+    version('main', git="https://github.com/lukemartinlogan/labios.git", branch='master')
 
     # FIXME: Add dependencies if required.
     depends_on('memcached')
