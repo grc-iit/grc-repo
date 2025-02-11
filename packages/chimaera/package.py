@@ -17,10 +17,12 @@ class Chimaera(CMakePackage):
     variant('zmq', default=False, description='Build ZeroMQ tests')
     variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
+    variant('depsonly', default=False, description='Only install dependencies')
 
     depends_on('hermes-shm@main', when='@main')
     depends_on('hermes-shm@dev', when='@dev')
     depends_on('hermes-shm@priv', when='@priv')
+    
     depends_on('hermes-shm+compress')
     depends_on('hermes-shm+encrypt')
     depends_on('hermes-shm+elf')
@@ -44,6 +46,6 @@ class Chimaera(CMakePackage):
             args.append('-DCMAKE_BUILD_TYPE=Debug')
         else:
             args.append('-DCMAKE_BUILD_TYPE=Release')
-        if '+nocompile' in self.spec:
+        if '+nocompile' in self.spec or '+depsonly' in self.spec:
             args.append('-DCHIMAERA_NO_COMPILE=ON')
         return args
