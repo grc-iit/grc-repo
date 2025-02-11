@@ -11,7 +11,7 @@ class Iowarp(CMakePackage):
             preferred=True)
     version('dev', branch='dev',
              git='https://github.com/iowarp/content-transfer-engine.git')
-    version('priv', branch='main',
+    version('priv', branch='dev',
             git='https://github.com/lukemartinlogan/hermes.git')
     
     # Common across hermes-shm and hermes
@@ -25,6 +25,7 @@ class Iowarp(CMakePackage):
     variant('compress', default=False, description='Include compression libraries')
     variant('jarvis', default=True, description='Install jarvis deployment tool')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
+    variant('depsonly', default=False, description='Only install dependencies')
 
     depends_on('chimaera')
     depends_on('chimaera -nocompile', when='~nocompile')
@@ -63,6 +64,6 @@ class Iowarp(CMakePackage):
             args.append(self.define('HERMES_ENABLE_COMPRESS', 'ON'))
         if '+encrypt' in self.spec:
             args.append(self.define('HERMES_ENABLE_ENCRYPT', 'ON'))
-        if '+nocompile' in self.spec:
+        if '+nocompile' in self.spec or '+depsonly' in self.spec:
             args.append(self.define('HERMES_NO_COMPILE', 'ON'))
         return args
