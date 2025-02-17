@@ -6,9 +6,9 @@ class HermesShm(CMakePackage):
     url = "https://github.com/grc-iit/hermes-shm/archive/refs/tags/v1.2.0.tar.gz"
 
     # Branch versions
-    version('main', branch='master', preferred=True)
+    version('main', branch='main', preferred=True)
     version('dev', branch='dev')
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/hermes-shm.git')
+    version('priv', branch='main', git='https://github.com/lukemartinlogan/hermes-shm.git')
     
     # Versions used by IoWarp CTE
     version('2.0.0', tag='v2.0.0', git='https://github.com/grc-iit/hermes-shm.git')

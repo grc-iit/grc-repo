@@ -6,7 +6,7 @@ class Hermes(CMakePackage):
     git = "https://github.com/HDFGroup/hermes.git"
 
     version('main',
-            branch='master', 
+            branch='main', 
             submodules=True,
             git='https://github.com/HDFGroup/hermes.git')
     version('dev', branch='dev',
