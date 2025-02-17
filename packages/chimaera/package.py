@@ -1,8 +1,8 @@
-from spack import *
+from spack.package import *
 
 class Chimaera(CMakePackage):
     homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
-    git = "https://github.com/lukemartinlogan/chimaera.git"
+    git = "https://github.com/iowarp/iowarp-runtime.git"
 
     version('main',
             branch='main', submodules=True, preferred=True)

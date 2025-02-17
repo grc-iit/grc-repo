@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 
 import os
-from spack import *
+from spack.package import *
 
 
 class Orangefs(AutotoolsPackage):

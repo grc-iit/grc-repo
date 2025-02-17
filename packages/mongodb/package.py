@@ -1,4 +1,4 @@
-from spack import *
+from spack.package import *
 class Mongodb(SConsPackage):
   """FIXME: Put a proper description of your package here."""
 

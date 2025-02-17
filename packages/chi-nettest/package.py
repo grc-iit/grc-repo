@@ -1,4 +1,4 @@
-from spack import *
+from spack.package import *
 
 class ChiNettest(CMakePackage):
     homepage = "https://github.com/lukemartinlogan/chi-nettest.git"

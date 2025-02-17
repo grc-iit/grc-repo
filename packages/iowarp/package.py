@@ -1,4 +1,4 @@
-from spack import *
+from spack.package import *
 
 class Iowarp(CMakePackage):
     homepage = "https://grc.iit.edu/docs/hermes/main-scenario"

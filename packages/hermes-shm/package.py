@@ -1,8 +1,8 @@
-from spack import *
+from spack.package import *
 
 class HermesShm(CMakePackage):
     homepage = "https://github.com/lukemartinlogan/hermes-shm/wiki"
-    git = "https://github.com/grc-iit/hermes-shm.git"
+    git = "https://github.com/iowarp/cte-hermes-shm.git"
     url = "https://github.com/grc-iit/hermes-shm/archive/refs/tags/v1.2.0.tar.gz"
 
     # Branch versions
