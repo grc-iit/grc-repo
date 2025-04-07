@@ -13,6 +13,7 @@ class ChiNettest(CMakePackage):
     depends_on('mochi-thallium+cereal@0.10.1')
     depends_on('argobots@1.1+affinity')
     depends_on('cereal')
+    depends_on('hermes-shm')
 
     def cmake_args(self):
         args = []
