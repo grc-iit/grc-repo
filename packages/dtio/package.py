@@ -10,7 +10,8 @@ class Dtio(CMakePackage):
     variant('liburing', default=False, description='Enable liburing support')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
-    depends_on('iowarp-runtime')
+    depends_on('iowarp-runtime', when='-nocompile')
+    depends_on('iowarp-runtime +nocompile', when='+nocompile')
     depends_on('hdf5')
     depends_on('liburing', when='+liburing')
     depends_on('mpi', when='+mpi')
