@@ -11,7 +11,7 @@ class Dtio(CMakePackage):
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
     variant('iwnocompile', default=False, description='Do not compile the iowarp library (used for dev purposes)')
 
-    depends_on('iowarp-runtime', when='-nocompile')
+    depends_on('iowarp-runtime', when='-iwnocompile')
     depends_on('iowarp-runtime +nocompile', when='+iwnocompile')
     depends_on('hdf5')
     depends_on('liburing', when='+liburing')
